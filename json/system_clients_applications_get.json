@@ -1,0 +1,50 @@
+[
+    {
+        "id": 4,
+        "client": 13,
+        "name": "nowa2",
+        "secret": "bb16ec308e93d59df7b6fbc6a58a13",
+        "redirectedUrl": null,
+        "scope": [
+
+        ],
+        "cat": "2014-02-04 14:42:43 GMT",
+        "uat": "2014-02-04 14:42:43 GMT"
+    },
+    {
+        "id": 2,
+        "client": 13,
+        "name": "test32423453454",
+        "secret": "92213dcbec7b4f3cf936c9b59f5a7bb",
+        "redirectedUrl": "aaaa",
+        "scope": [
+
+        ],
+        "cat": "2014-02-04 14:23:41 GMT",
+        "uat": "2014-02-04 14:23:41 GMT"
+    },
+    {
+        "id": 3,
+        "client": 13,
+        "name": "Lorem",
+        "secret": "f2bd5c9137eff7447745ecbbabe26a2a",
+        "redirectedUrl": "http:\/\/a.pl",
+        "scope": [
+
+        ],
+        "cat": "2014-02-04 14:41:08 GMT",
+        "uat": "2014-02-04 14:41:08 GMT"
+    },
+    {
+        "id": 5,
+        "client": 13,
+        "name": "test dodawania",
+        "secret": "e23445413412c9fac78d6d899ef47f1",
+        "redirectedUrl": "o",
+        "scope": [
+
+        ],
+        "cat": "2014-02-04 15:03:02 GMT",
+        "uat": "2014-02-04 15:03:02 GMT"
+    }
+]

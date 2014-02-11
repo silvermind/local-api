@@ -1,0 +1,11 @@
+{
+    "className": "Example",
+    "description": "Example description",
+    "functionType": "NATIVE",
+    "manifesto": {},
+    "method": "isExample",
+    "name": "Example",
+    "returnType": "BOOLEAN",
+    "scriptId": 1,
+    "scriptType": "CLIENT"
+}

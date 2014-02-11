@@ -1,0 +1,43 @@
+{
+    "birthDate": null,
+    "counterValues": [
+        5,
+        3
+    ],
+    "customFields": {
+        "shoes": "45",
+        "system": "Windows"
+    },
+    "email": "example@ex.pl",
+    "externalIds": [
+        3,
+        4
+    ],
+    "firstName": "Example",
+    "friends": [
+        1,
+        2,
+        3
+    ],
+    "gainedAchievements": [
+        2,
+        3
+    ],
+    "gender": "MALE",
+    "lastName": "Example",
+    "password": "example",
+    "role": "Example",
+    "segments": [
+        1,
+        3
+    ],
+    "status": "ACTIVE",
+    "usersGroups": [
+        1,
+        2
+    ],
+    "wonGames": [
+        4,
+        5
+    ]
+}

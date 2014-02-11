@@ -1,0 +1,12 @@
+{
+  "id": 0,
+  "client": 13,
+  "name": "test",
+  "secret": "15b0761175f7182cb9fed9273ed974e",
+  "redirectedUrl": null,
+  "scope": [
+
+  ],
+  "cat": "2014-02-06 11:59:30 GMT",
+  "uat": "2014-02-06 11:59:30 GMT"
+}

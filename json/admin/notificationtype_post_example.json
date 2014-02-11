@@ -1,0 +1,6 @@
+{
+    "action": "COUNTER_INC",
+    "config": "Example config",
+    "name": "Example",
+    "priority": "PRIORITY_MEDIUM"
+}

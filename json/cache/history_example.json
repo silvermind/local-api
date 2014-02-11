@@ -1,0 +1,14 @@
+[
+    {
+        "userId": 1,
+        "type": "won game"
+    },
+    {
+        "userId": 1,
+        "type": "gained achievement"
+    },
+    {
+        "userId": 1,
+        "type": "won game"
+    }
+]

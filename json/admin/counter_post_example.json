@@ -1,0 +1,14 @@
+{
+    "achievement": 1,
+    "conditions": [
+        1,
+        2
+    ],
+    "description": "Example description",
+    "eventSettable": true,
+    "game": 1,
+    "name": "Example",
+    "requirement": "ALL",
+    "transactionSource": 1,
+    "value": 1
+}

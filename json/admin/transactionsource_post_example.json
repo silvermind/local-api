@@ -1,0 +1,9 @@
+{
+    "description": "Example description",
+    "endpoint": "Example",
+    "functions": [
+        1,
+        2
+    ],
+    "name": "Example"
+}

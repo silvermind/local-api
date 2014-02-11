@@ -1,0 +1,21 @@
+{
+  "id": 15,
+  "name": "test",
+  "description": "test",
+  "levelScriptId": 0,
+  "status": "ACTIVE",
+  "currentStorage": null,
+  "currentBandwidth": null,
+  "usersNumber": null,
+  "leaderboardsNumber": null,
+  "memberWithRole": [
+    5
+  ],
+  "clientLimit": null,
+  "applications": [
+    
+  ],
+  "customFields": null,
+  "cat": "2014-02-06 11:45:42 GMT",
+  "uat": "2014-02-06 11:45:42 GMT"
+}

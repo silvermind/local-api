@@ -1,0 +1,33 @@
+[
+    {
+        "id": 3,
+        "client": {
+            "id": 13,
+            "name": "Samochody",
+            "description": "testowy opis",
+            "levelScriptId": 0,
+            "status": "ACTIVE",
+            "currentStorage": null,
+            "currentBandwidth": null,
+            "usersNumber": null,
+            "leaderboardsNumber": null,
+            "memberWithRole": [
+                3
+            ],
+            "clientLimit": null,
+            "applications": [
+                2,
+                3,
+                4,
+                5
+            ],
+            "customFields": null,
+            "cat": "2014-02-04 10:20:00 GMT",
+            "uat": "2014-02-04 10:20:00 GMT"
+        },
+        "member": 63,
+        "role": "OWNER",
+        "cat": "2014-02-04 10:20:00 GMT",
+        "uat": "2014-02-04 10:20:00 GMT"
+    }
+]
