@@ -8,6 +8,7 @@ var express = require('express')
     , user = require('./routes/user')
     , ok = require('./routes/ok')
     , fake = require('./routes/fake')
+    , oauth = require('./routes/oauth')    
     , fakeJson = require('./routes/fakeJson')
     , http = require('http')
     , path = require('path');
@@ -30,12 +31,17 @@ app.configure('development', function(){
     app.use(express.errorHandler());
 });
 
-app.get('/login', fake.login);
-app.get('/', fake.login);
-app.get('/client/:clientId/authorize', fakeJson.token);
 
+//OAuth fake mechanism
+app.get('/oauth', fake.login);
+app.get('/oauth/client/:clientId/authorize', fakeJson.token);
+app.get('/oauth/token', oauth.token);
+
+
+//API fake mechanism
 app.all('/v1/system/*', fake.findAnswer);
 app.all('/v1/admin/*', fakeJson.admin);
+
 
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
