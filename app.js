@@ -33,9 +33,9 @@ app.configure('development', function(){
 
 
 //OAuth fake mechanism
-app.get('/oauth', fake.login);
-app.get('/oauth/client/:clientId/authorize', fakeJson.token);
-app.get('/oauth/token', oauth.token);
+app.all('/oauth', fake.login);
+app.all('/oauth/client/:clientId/authorize', fakeJson.token);
+app.all('/oauth/token', oauth.token);
 
 
 //API fake mechanism
