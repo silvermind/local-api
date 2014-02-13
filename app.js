@@ -10,6 +10,7 @@ var express = require('express')
     , fake = require('./routes/fake')
     , oauth = require('./routes/oauth')    
     , fakeJson = require('./routes/fakeJson')
+    , fakeErrors = require('./routes/fakeErrors')
     , http = require('http')
     , path = require('path');
 
@@ -41,6 +42,7 @@ app.all('/oauth/token', oauth.token);
 //API fake mechanism
 app.all('/v1/system/*', fake.findAnswer);
 app.all('/v1/admin/*', fakeJson.admin);
+app.all('/errors/*', fakeErrors.check);
 
 
 http.createServer(app).listen(app.get('port'), function(){

@@ -33,7 +33,7 @@ exports.token = function(req, res){
     } else {
 	    var response = {
 	        token_type: "Bearer",
-	        expires_in: "3600",
+	        expires_in: "10",
 	        access_token: "965c8d4d29717ad3ad8e82447c55b1e"
 	    };
 	}
