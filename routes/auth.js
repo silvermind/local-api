@@ -36,7 +36,7 @@ exports.auth = function(req, res){
         redirectUrl = config.apiParams.redirectTo + resPath;
     }
 
-    console.log(redirectUrl);
+    res.redirect(303, redirectUrl);
 
 };
 
