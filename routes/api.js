@@ -17,9 +17,9 @@ var getJsonData = function (obj) {
 exports.responses = function(req, res){
 
     var reqUrl = req.url,
-        resArr = reqUrl.split('/'),
         url_parts = url.parse(req.url, true),
         query = url_parts.query,
+        resArr = url_parts.pathname.split('/'),
         method = req.originalMethod.toLowerCase(),
         currentResource = ramlApi;
 
@@ -33,6 +33,7 @@ exports.responses = function(req, res){
     })
 
     resArr.splice(0,1);
+    console.log(url_parts);
 
     for (var i=0, l=resArr.length; i < l; i++) {
         var elementName = resArr[i];
