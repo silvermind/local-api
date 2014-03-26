@@ -1,5 +1,5 @@
 var config = {
-    arbiterUrl: 'https://connect.isaacloud.com/arbiter',
+    arbiterUrl: 'https://connect.isaacloud.com/arbiter/',
     apiParams: {
         origin: 'isaacloud.com',
         redirectTo: ''
