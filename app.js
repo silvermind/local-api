@@ -5,16 +5,20 @@
 
 var express = require('express')
     , routes = require('./routes')
+    , config = require('./config')
     , user = require('./routes/user')
     , ok = require('./routes/ok')
     , fake = require('./routes/fake')
-    , oauth = require('./routes/oauth')    
+    , auth = require('./routes/auth')
+    , oauth = require('./routes/oauth')
     , fakeJson = require('./routes/fakeJson')
     , fakeErrors = require('./routes/fakeErrors')
     , http = require('http')
     , path = require('path');
 
 var app = express();
+
+console.log(config);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3005);
@@ -37,6 +41,8 @@ app.configure('development', function(){
 app.all('/oauth', fake.login);
 app.all('/oauth/client/:clientId/authorize', fakeJson.token);
 app.all('/oauth/token', oauth.token);
+
+app.all('/auth', auth.auth);
 
 
 //API fake mechanism
