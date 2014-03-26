@@ -13,12 +13,11 @@ var express = require('express')
     , oauth = require('./routes/oauth')
     , fakeJson = require('./routes/fakeJson')
     , fakeErrors = require('./routes/fakeErrors')
+    , api = require('./routes/api')
     , http = require('http')
     , path = require('path');
 
 var app = express();
-
-console.log(config);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3005);
@@ -46,9 +45,10 @@ app.all('/auth', auth.auth);
 
 
 //API fake mechanism
-app.all('/v1/system/*', fake.findAnswer);
-app.all('/v1/admin/*', fakeJson.admin);
+app.all('/system/*', fake.findAnswer);
 app.all('/errors/*', fakeErrors.check);
+
+app.all('/admin/*', api.responses);
 
 
 http.createServer(app).listen(app.get('port'), function(){

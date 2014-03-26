@@ -1,15 +1,16 @@
 [
     {
-        "id": 4,
-        "client": 13,
-        "name": "nowa2",
+        "id": 43,
+        "client": 12,
+        "name": "admin_panel",
         "secret": "bb16ec308e93d59df7b6fbc6a58a13",
         "redirectedUrl": null,
         "scope": [
 
         ],
         "cat": "2014-02-04 14:42:43 GMT",
-        "uat": "2014-02-04 14:42:43 GMT"
+        "uat": "2014-02-04 14:42:43 GMT",
+        "purpose": 0
     },
     {
         "id": 7,
