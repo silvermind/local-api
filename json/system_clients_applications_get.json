@@ -14,14 +14,16 @@
     },
     {
         "id": 7,
-        "client": 53,
+        "client": 12,
         "name": "asdtest",
+        "label": "Example",
         "secret": "aabb16ece931d59df7b6fbc6a58a13",
         "redirectedUrl": null,
         "scope": [
 
         ],
         "cat": "2014-02-04 14:42:43 GMT",
-        "uat": "2014-02-04 14:42:43 GMT"
+        "uat": "2014-02-04 14:42:43 GMT",
+        "purpose": 1
     }
 ]

@@ -11,7 +11,13 @@ raml.loadFile('raml/v1.raml').then( function(data) {
 });
 
 var getJsonData = function (obj) {
-    return JSON.parse(obj.body['application/json'].example);
+    var res = obj;
+    try {
+        res = JSON.parse(obj.body['application/json'].example);
+    } catch (e) {
+        console.log(e);
+    }
+    return res;
 }
 
 exports.responses = function(req, res){
@@ -58,7 +64,9 @@ exports.responses = function(req, res){
     var responses = methodObject.responses,
         responseStatus = query.debug || 200;
 
+    setTimeout(function () {
     res.json(getJsonData(responses[responseStatus]));
+    }, 700)
 
 };
 

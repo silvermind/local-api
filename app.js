@@ -29,12 +29,15 @@ app.configure(function(){
     app.use(express.methodOverride());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(function(req, res, next) {
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        return next();
+    });
 });
 
 app.configure('development', function(){
     app.use(express.errorHandler());
 });
-
 
 //OAuth fake mechanism
 app.all('/oauth', fake.login);
@@ -42,6 +45,7 @@ app.all('/oauth/client/:clientId/authorize', fakeJson.token);
 app.all('/oauth/token', oauth.token);
 
 app.all('/auth', auth.auth);
+app.all('/signin', auth.signin);
 
 
 //API fake mechanism
