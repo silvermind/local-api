@@ -1,0 +1,13 @@
+{
+    "name": "fake-api",
+    "version": "0.0.1",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "components"
+    ],
+    "dependencies": {
+        "raml": "isaacloud/api.raml#dev",
+        "easyXDM-custom": "isaacloud/easyXDM#dev"
+    }
+}

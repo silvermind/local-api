@@ -7,11 +7,10 @@ lib-cov
 *.pid
 *.gz
 
-pids
-logs
-results
+.*
 
 npm-debug.log
 node_modules
-.idea
-/nbproject/private/
+
+fake-api/bower_components
+fake-connect/bower_components
