@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-03/schema",
+    "title": "Error definition",
+    "description": "Representation of error",
+    "properties": {
+        "code": {
+            "required": true,
+            "type": "number",
+            "description": "The internal code of the error"
+        },
+        "message": {
+            "required": true,
+            "type": "string",
+            "description": "Simple message or hashcode exaplaining the error"
+        },
+        "data": {
+            "required": false,
+            "type": "object",
+            "description": "Additional information for some of the errors",
+            "uniqueItems": true,
+            "properties": {
+            "*": {
+              "type": "string"
+            }
+          }
+        }
+    }
+}

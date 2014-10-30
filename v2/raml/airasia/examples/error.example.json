@@ -1,0 +1,7 @@
+{
+    "message" : "Deserialization error",
+    "code" : 40001,
+    "data" : {
+    	"key" : "cannot be null"
+    }
+}

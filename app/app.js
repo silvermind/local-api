@@ -26,38 +26,38 @@ var config = require('./config.js');
 var data = require('./data.js');
 
 //initialize hosts file utility
-if(typeof config.hostsUtil == 'object' && config.hostsUtil.use) {
-    var hostDict = {};
-    config.fakeServers.forEach(function (f) {
-        hostDict[f.hostname] = f.fakeIP;
-    });
-    var hostsUtil = require('./hostsUtil.js')(config.hostsUtil.path, hostDict, config.hostsUtil.newline);
-
-    //handle cleanup of hosts file at end of execution
-    function exitHandler(options,err){
-        if(err) {
-            console.log(err.stack);
-        }
-        if(options.cleanup){
-            hostsUtil.revert();
-        }
-        if(options.exit) {
-            process.exit();
-        }
-    }
-
-    process
-        //fire handler when app is closing
-        .on('exit', exitHandler.bind(null,{cleanup:true}))
-        //fire handler on ctrl+c event
-        .on('SIGINT', exitHandler.bind(null, {exit: true}))
-        //fire handler on kill -9
-        .on('SIGTERM', exitHandler.bind(null, {exit: true}))
-        //fire handler on uncaught exceptions
-        .on('uncaughtException', exitHandler.bind(null, {exit:true}));
-
-    hostsUtil.init();
-}
+//if(typeof config.hostsUtil == 'object' && config.hostsUtil.use) {
+//    var hostDict = {};
+//    config.fakeServers.forEach(function (f) {
+//        hostDict[f.hostname] = f.fakeIP;
+//    });
+//    var hostsUtil = require('./hostsUtil.js')(config.hostsUtil.path, hostDict, config.hostsUtil.newline);
+//
+//    //handle cleanup of hosts file at end of execution
+//    function exitHandler(options,err){
+//        if(err) {
+//            console.log(err.stack);
+//        }
+//        if(options.cleanup){
+//            hostsUtil.revert();
+//        }
+//        if(options.exit) {
+//            process.exit();
+//        }
+//    }
+//
+//    process
+//        //fire handler when app is closing
+//        .on('exit', exitHandler.bind(null,{cleanup:true}))
+//        //fire handler on ctrl+c event
+//        .on('SIGINT', exitHandler.bind(null, {exit: true}))
+//        //fire handler on kill -9
+//        .on('SIGTERM', exitHandler.bind(null, {exit: true}))
+//        //fire handler on uncaught exceptions
+//        .on('uncaughtException', exitHandler.bind(null, {exit:true}));
+//
+//    hostsUtil.init();
+//}
 
 //create main Express server
 var fake = express();

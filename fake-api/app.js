@@ -41,9 +41,9 @@ exports.app = function(config,data){
 
     //FIXME: currently the routing for easyxdm doesn't work - there is a '../easyXDM.debug.js' in index.html
     // this requires a change in the index.html source of easyXDM or a change in routing
-    api.get('/easyxdm/', function(req,res){
-        res.sendfile(__dirname + '/bower_components/easyXDM-custom/dist/cors/index.html');
-    });
+    //api.get('/easyxdm/', function(req,res){
+    //    res.sendfile(__dirname + '/bower_components/easyXDM-custom/dist/cors/index.html');
+    //});
 
 //    api.use('/easyxdm/', express.static(__dirname + '/bower_components/easyXDM-custom'));
 

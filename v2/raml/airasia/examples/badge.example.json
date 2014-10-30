@@ -1,0 +1,135 @@
+{
+  "_id": "544f6d0ced5b2fca65a9f55b",
+  "index": 0,
+  "isActive": "Tue Sep 06 2005 19:56:50 GMT+0200 (CEST)",
+  "points": 3183,
+  "level": 4,
+  "avatar": "http://placehold.it/32x32",
+  "eyeColor": "brown",
+  "name": "Gates Marsh",
+  "gender": "male",
+  "company": "COMTOURS",
+  "email": "gatesmarsh@comtours.com",
+  "phone": "+1 (959) 484-2986",
+  "address": "128 Bayard Street, Garberville, Wyoming, 3389",
+  "tags": [
+    "et",
+    "elit",
+    "ut",
+    "laboris"
+  ],
+  "badges": {
+    "toErn": [
+      {
+        "id": "544f6d0c461e8d4fbf68dd5e",
+        "name": "esse proident",
+        "tags": [
+          "aliqua",
+          "proident"
+        ],
+        "description": "aliquip Lorem est nulla in nostrud quis est dolor sit"
+      },
+      {
+        "id": "544f6d0c1dc2d59cec551a17",
+        "name": "aute sunt",
+        "tags": [
+          "quis",
+          "mollit"
+        ],
+        "description": "ea ex veniam mollit adipisicing magna officia Lorem aliqua id"
+      },
+      {
+        "id": "544f6d0c584e66791602ef60",
+        "name": "culpa consectetur",
+        "tags": [
+          "excepteur",
+          "dolore"
+        ],
+        "description": "non culpa laboris nostrud consectetur velit Lorem qui magna laboris"
+      }
+    ],
+    "erned": [
+      {
+        "id": "544f6d0c9b2c1f6c2451f50d",
+        "name": "esse consectetur",
+        "tags": [
+          "veniam",
+          "amet"
+        ],
+        "description": "anim commodo nostrud nisi tempor duis dolore amet deserunt in"
+      },
+      {
+        "id": "544f6d0c5392fa4bfcb2094b",
+        "name": "ipsum qui",
+        "tags": [
+          "laboris",
+          "ullamco"
+        ],
+        "description": "ullamco ut irure minim elit elit ea Lorem mollit laborum"
+      },
+      {
+        "id": "544f6d0ca1b37d6241c45916",
+        "name": "nostrud culpa",
+        "tags": [
+          "officia",
+          "dolore"
+        ],
+        "description": "commodo aliqua nostrud sint veniam deserunt proident anim minim velit"
+      },
+      {
+        "id": "544f6d0c56a3fef6395fed1f",
+        "name": "excepteur deserunt",
+        "tags": [
+          "commodo",
+          "proident"
+        ],
+        "description": "eiusmod occaecat consequat nulla laboris veniam nostrud exercitation culpa minim"
+      }
+    ]
+  },
+  "notifications": [
+    {
+      "id": 0,
+      "read": false,
+      "type": "badge",
+      "key": "pariatur excepteur tempor in cillum et eu veniam nulla est",
+      "variables": {
+        "key": "value"
+      }
+    },
+    {
+      "id": 1,
+      "read": false,
+      "type": "badge",
+      "key": "esse adipisicing anim cillum consequat pariatur exercitation ad culpa laborum",
+      "variables": {
+        "key": "value"
+      }
+    },
+    {
+      "id": 2,
+      "read": false,
+      "type": "badge",
+      "key": "incididunt duis cillum adipisicing excepteur non anim laborum tempor occaecat",
+      "variables": {
+        "key": "value"
+      }
+    }
+  ],
+  "friends": [
+    {
+      "id": "544f6d0cbf947426b9d8fccc",
+      "name": "Twila Joyner"
+    },
+    {
+      "id": "544f6d0c34b772c79d8970af",
+      "name": "Murray Nolan"
+    },
+    {
+      "id": "544f6d0cbb83af4715a7251d",
+      "name": "Laura Ayala"
+    }
+  ],
+  "greeting": "Hello, Gates Marsh! You have 7 unread messages.",
+  "favoriteFruit": "apple"
+}

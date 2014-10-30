@@ -1,0 +1,217 @@
+{
+  "type": "object",
+  "title": "User",
+  "description": "Representation of user",
+  "required": false,
+  "additionalProperties": false,
+  "properties": {
+    "_id": {
+      "type": "string",
+      "description": "User id",
+      "required": true
+    },
+    "image": {
+      "type": "string",
+      "description": "User image",
+      "required": true
+    },
+    "badges": {
+      "type": "object",
+      "title": "Badges",
+      "description": "User badges catalog",
+      "required": true
+    },
+    "email": {
+      "type": "string",
+      "title": "E-Mail",
+      "description": "User email address",
+      "required": true
+    },
+    "firstName": {
+      "type": "string",
+      "title": "First Name",
+      "description": "User first name",
+      "required": true
+    },
+    "flights": {
+      "type": "object",
+      "title": "Flights",
+      "description": "Flights informations",
+      "required": true,
+      "properties": {
+        "distance": {
+          "type": "number",
+          "title": "Distance",
+          "description": "Distance in kilometeres",
+          "minimum": "0",
+          "required": true
+        },
+        "numberOf": {
+          "type": "number",
+          "title": "Number Of",
+          "description": "Number of flights",
+          "minimum": "0",
+          "required": true
+        }
+      }
+    },
+    "lastName": {
+      "type": "string",
+      "title": "Last Name",
+      "description": "User last name",
+      "required": true
+    },
+    "level": {
+      "type": "number",
+      "title": "Level",
+      "description": "User level",
+      "minimum": "0",
+      "required": true
+    },
+    "notifications": {
+      "type": "array",
+      "title": "Notifications",
+      "description": "Collection of user notifications",
+      "minitems": "0",
+      "required": true,
+      "items": {
+        "type": "object",
+        "title": "Notification",
+        "required": false,
+        "properties": {
+          "createAt": {
+            "type": "string",
+            "description": "Notification creation time",
+            "required": true
+          },
+          "description": {
+            "type": "object",
+            "title": "Notification description",
+            "additionalProperties": true
+          },
+          "image-50x50": {
+            "type": "string",
+            "description": "Small image",
+            "id": "http://jsonschema.net/notifications/0/images/50x50",
+            "required": true
+          },
+          "image-75x75": {
+            "type": "string",
+            "description": "Normal image",
+            "id": "http://jsonschema.net/notifications/0/images/75x75",
+            "required": true
+          },
+          "read": {
+            "type": "boolean",
+            "required": true
+          },
+          "facebook": {
+            "type": "object",
+            "title": "Facebook",
+            "description": " For more information see https://developers.facebook.com/docs/graph-api/reference/v2.1/user/feed",
+            "id": "http://jsonschema.net/notifications/0/share/facebook",
+            "required": true,
+            "properties": {
+              "description": {
+                "type": "object",
+                "description": "Description of share item",
+                "required": true,
+                "additionalProperties": true
+              },
+              "title": {
+                "type": "object",
+                "description": "Title of share item",
+                "required": true,
+                "additionalProperties": true
+              }
+            }
+          },
+          "twitter": {
+            "type": "object",
+            "title": "Twitter",
+            "description": " For more information see https://dev.twitter.com/rest/reference/post/statuses/update",
+            "required": false,
+            "properties": {
+              "status": {
+                "type": "object",
+                "description": "The text of your status update, typically up to 140 characters. URL encode as necessary. t.co link wrapping may affect character counts.",
+                "required": true,
+                "additionalProperties": true
+              }
+            }
+          },
+          "title": {
+            "type": "object",
+            "title": "Title of notification",
+            "description": "Title of notification",
+            "required": true,
+            "additionalProperties": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of notification",
+            "required": true,
+            "enum": [
+              "badgeErn",
+              "lvlUp",
+              "lbUp"
+            ],
+            "default": "badgeErn"
+          }
+        }
+      }
+    },
+    "points": {
+      "type": "number",
+      "description": "User points",
+      "minimum": "0",
+      "required": true
+    },
+    "tags": {
+      "type": "array",
+      "title": "List of user tags",
+      "minitems": "0",
+      "maxitems": "100",
+      "required": true,
+      "items": {
+        "type": "string",
+        "id": "http://jsonschema.net/tags/0",
+        "required": false
+      }
+    },
+    "facebook": {
+            "type": "object",
+            "title": "Facebook",
+            "description": " For more information see https://developers.facebook.com/docs/graph-api/reference/v2.1/user/feed",
+            "required": true,
+            "properties": {
+              "description": {
+                "type": "object",
+                "description": "Description of share item",
+                "required": true,
+                "additionalProperties": true
+              },
+              "title": {
+                "type": "object",
+                "description": "Title of share item",
+                "required": true,
+                "additionalProperties": true
+              }
+            }
+          },
+          "twitter": {
+            "type": "object",
+            "title": "Twitter",
+            "description": " For more information see https://dev.twitter.com/rest/reference/post/statuses/update",
+            "required": false,
+            "properties": {
+              "status": {
+                "type": "object",
+                "description": "The text of your status update, typically up to 140 characters. URL encode as necessary. t.co link wrapping may affect character counts.",
+                "required": true,
+                "additionalProperties": true
+              }
+            }
+          },
+  }
+}
