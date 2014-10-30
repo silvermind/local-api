@@ -1,4 +1,5 @@
 module.exports = {
     port: 3333,
-    ramlDir: './raml/'
+    appToken: '111',
+    memberToken: '222'
 }

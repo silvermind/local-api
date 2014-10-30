@@ -1,6 +1,4 @@
-var https = require('https'),
-    fs = require('fs'),
-    express = require('express'),
+var express = require('express'),
     app = express(),
     _ = require('lodash'),
     ramlParser = require('raml-parser'),
@@ -12,7 +10,8 @@ if (!argv.r) {
 }
 
 var config = require('./config/config.js'),
-    apiManager = require('./models/apiManager.js');
+    apiManager = require('./models/apiManager.js'),
+    oauthManager = require('./models/oauthManager.js')(config);
 
 var ramlAddress = argv.r,
     ramlString,
@@ -23,26 +22,14 @@ console.log('[core] Start loading raml')
 ramlParser.loadFile(ramlAddress).then(function(data){
 
     ramlRoot = data;
+    apiManager.setRamlRoot(data);
     console.log('[core] Raml loading finished');
 
-    app.all('*',function(req,res){
-
-        var url = req.url,
-            query = req.query,
-            method = req.method.toLowerCase();
-
-        try{
-            var responseData = apiManager.getResponse(ramlRoot, req.path, method);
-            res.status(200).send(responseData);
-        } catch(e){
-            console.log(e);
-            res.status(404).send({
-                "message": "This resource does not exist, look into the documentation",
-                "code": 40402
-            });
-        }
-
-    });
+    oauth.get('/auth', oauthManager.auth);
+    oauth.all('/signin', oauthManager.signin);
+    oauth.get('/logout', oauthManager.logout);
+    oauth.all('/token', oauthManager.token);
+    app.all('*', apiManager.ramlMethods);
 
     server = app.listen(config.port, function () {
         var host = server.address().address
