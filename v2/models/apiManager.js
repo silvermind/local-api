@@ -22,7 +22,6 @@ var getResponse = function (ramlRoot, path, method){
 
     for (var i = 0, l=resArr.length; i < l; i++){
         var elementName = resArr[i];
-        console.log('Element name: ',elementName);
         var nextElement = _.find(currentResource.resources, function(resource){
             if(elementName === '_ID_'){
                 return resource.relativeUri.match(/{(.*?)}/);
@@ -65,8 +64,7 @@ module.exports = {
 
     ramlMethods: function(req,res){
 
-        var
-            self = this,
+        var self = this,
             url = req.url,
             query = req.query,
             method = req.method.toLowerCase();
@@ -82,7 +80,7 @@ module.exports = {
             });
         }
 
-    },
+    }
 
 
 
