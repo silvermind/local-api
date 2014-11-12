@@ -20,14 +20,20 @@ module.exports = function(config){
         token = (query.aid == 0 && query.gid == 0) ? config.memberToken : config.appToken;
 
         if (query.sdk == 'js' || query.sdk == 'ios' || query.sdk == 'android') {
-            resPath += '#access_token=' + token + '&token_type=Bearer&expires_in=3600';
+            resPath += '?xdm_c=' + query.xdm_c;
+            resPath += '&xdm_p=' + query.xdm_p;
+            resPath += '&xdm_e=' + query.xdm_e;
+            resPath += '&gid=' + query.gid;
+            resPath += '&aid=' + query.aid;
+            resPath += '&sdk=' + query.sdk;
+            resPath += '&origin=' + query.origin;
+            resPath += '&p=false';
+            resPath += '#access_token=' + token;
+            resPath += '&token_type=Bearer&expires_in=3600';
 
             redirectUrl = config.arbiterUrl + resPath;
         } else {
-            resPath += '?access_token=' + token;
-            resPath += '&token_type=Bearer&expires_in=3600&signed=no';
-
-            redirectUrl = data.app.redirect + resPath;
+            resPath += 'https://isaacloud.com';
         }
 
         return redirectUrl;
@@ -47,7 +53,7 @@ module.exports = function(config){
         },
 
         token: function (req, res) {
-            if(req.method == 'POST'){
+            if(req.method === 'POST'){
 
                 res.header('Content-Type','application/json');
                 res.send({

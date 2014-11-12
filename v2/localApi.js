@@ -34,10 +34,10 @@ ramlParser.loadFile(ramlAddress).then(function(data){
 
     app.use(customUtils.restLogger)
 
-    //oauth.get('/auth', oauthManager.auth);
-    //oauth.all('/signin', oauthManager.signin);
-    //oauth.get('/logout', oauthManager.logout);
-    //oauth.all('/token', oauthManager.token);
+    app.get('/auth', oauthManager.auth);
+    app.all('/signin', oauthManager.signin);
+    app.get('/logout', oauthManager.logout);
+    app.all('/token', oauthManager.token);
     app.all('*', apiManager.ramlMethods);
 
     server = app.listen(config.port, function () {
