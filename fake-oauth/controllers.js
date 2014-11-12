@@ -72,39 +72,13 @@ module.exports = function(config,data){
                     access_token: data.app.token,
                     expires_in: 3600
                 });
-//                var body = req.body;
-//                var headers = req.headers;
-//
-//                if( typeof(headers.authorization) == 'undefined') {
-//                    var response = {
-//                        error: "Missing http header: Authorization",
-//                    };
-//                    res.status(401);
-//                } else if( headers.authorization != 'Basic Mzc4OTE2NzgzNDpzODNqamRzOWsza2M5c2FrdW5qa3hkZg' ) {
-//                    var response = {
-//                        error: "Authorization token is invalid",
-//                    };
-//                    res.status(401);
-//                } else if( typeof body.grant_type == 'undefined') {
-//                    var response = {
-//                        error: "Required parameter is missing: grant_type",
-//                    };
-//                    res.status(400);
-//                } else if( body.grant_type != 'client_credentials') {
-//                    var response = {
-//                        error: "Required parameter is invalid: grant_type",
-//                    };
-//                    res.status(400);
-//                } else {
-//                    var response = {
-//                        token_type: "Bearer",
-//                        expires_in: "3600",
-//                        access_token: data.app.token
-//                    };
-//                }
-//
-//                res.header("Content-Type", "application/json");
-//                res.send(response);
+                var body = req.body;
+                var headers = req.headers;
+
+
+
+                res.header("Content-Type", "application/json");
+                res.send(response);
 
             } else {
                 res.redirect(303,'http://isaacloud.com');

@@ -56,11 +56,34 @@ module.exports = function(config){
             if(req.method === 'POST'){
 
                 res.header('Content-Type','application/json');
-                res.send({
-                    token_type:'Bearer',
-                    access_token: config.appToken,
-                    expires_in: 3600
-                });
+
+                var body = req.body,
+                    headers = req.headers,
+                    status,
+                    response;
+
+                if (!headers.authorization) {
+                    response = {error: "Missing http header: Authorization"};
+                    status = 401;
+                } else if (headers.authorization.indexOf('Basic ') != 0) {
+                    response = {error: "Authorization token is invalid"};
+                    status = 401;
+                } else if (!body.grant_type) {
+                    response = {error: "Required parameter is missing: grant_type"};
+                    status = 401;
+                } else if (body.grant_type !== 'client_credentials') {
+                    response = {error: "Required parameter is invalid: grant_type"};
+                    status = 401;
+                } else {
+                    response = {
+                        token_type: "Bearer",
+                        expires_in: "3600",
+                        access_token: config.appToken
+                    };
+                    status = 200;
+                }
+
+                res.status(status).send(response);
 
             } else {
                 res.redirect(303,'http://isaacloud.com');
