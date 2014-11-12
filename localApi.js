@@ -34,10 +34,8 @@ ramlParser.loadFile(ramlAddress).then(function(data){
 
     app.use(customUtils.restLogger)
 
-    app.get('/auth', oauthManager.auth);
-    app.all('/signin', oauthManager.signin);
-    app.get('/logout', oauthManager.logout);
-    app.all('/token', oauthManager.token);
+    app.get('/oauth/auth', oauthManager.auth);
+    app.all('/oauth/token', oauthManager.token);
     app.all('*', apiManager.ramlMethods);
 
     server = app.listen(config.port, function () {
