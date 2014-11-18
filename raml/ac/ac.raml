@@ -125,21 +125,34 @@ resourceTypes:
       put?: *common
       post?: *common
       delete?: *common
+/api:
+  displayName: API
+  type: baseResource
+  /notifications:
+    displayName: Notifications
+    type: baseResource
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              [
+                {"id":1, "title":"Welcome to your Account Center", "type":"success", "createdAt":1394898333000, "updatedAt":1394898333000, "isRead":false,
+                "description": "Here you can organize and edit your applications." }
+              ]
 /system:
   displayName: System
   type: baseResource
-  /current:
-    displayName: Current
+  /members:
+    displayName: Members
     type: baseResource
-    /member:
-      displayName: Member
+    /current:
+      displayName: Current
       type: baseResource
       get:
         responses:
           200:
             body:
-              schema: |
-                {"type":"object","$schema": "http://json-schema.org/draft-03/schema","id": "http://jsonschema.net","required":false,"properties":{ "address": { "type":"null", "id": "http://jsonschema.net/address", "required":false }, "avatar": { "type":"null", "id": "http://jsonschema.net/avatar", "required":false }, "city": { "type":"null", "id": "http://jsonschema.net/city", "required":false }, "companyName": { "type":"null", "id": "http://jsonschema.net/companyName", "required":false }, "country": { "type":"null", "id": "http://jsonschema.net/country", "required":false }, "createdAt": { "type":"number", "id": "http://jsonschema.net/createdAt", "required":false }, "data": { "type":"null", "id": "http://jsonschema.net/data", "required":false }, "email": { "type":"string", "id": "http://jsonschema.net/email", "required":false }, "fb": { "type":"null", "id": "http://jsonschema.net/fb", "required":false }, "firstName": { "type":"string", "id": "http://jsonschema.net/firstName", "required":false }, "gh": { "type":"null", "id": "http://jsonschema.net/gh", "required":false }, "gp": { "type":"null", "id": "http://jsonschema.net/gp", "required":false }, "id": { "type":"number", "id": "http://jsonschema.net/id", "required":false }, "lastName": { "type":"null", "id": "http://jsonschema.net/lastName", "required":false }, "nip": { "type":"null", "id": "http://jsonschema.net/nip", "required":false }, "postCode": { "type":"null", "id": "http://jsonschema.net/postCode", "required":false }, "roleInClient": { "type":"array", "id": "http://jsonschema.net/roleInClient", "required":false, "items": { "type":"number", "id": "http://jsonschema.net/roleInClient/0", "required":false } }, "twName": { "type":"null", "id": "http://jsonschema.net/twName", "required":false }, "tw": { "type":"null", "id": "http://jsonschema.net/tw", "required":false }, "updatedAt": { "type":"number", "id": "http://jsonschema.net/updatedAt", "required":false } }}
               example: |
                 {
                   "id":1,
@@ -147,7 +160,7 @@ resourceTypes:
                   "updatedAt":1393003640686,
                   "email":"test-user@test.pl",
                   "firstName":"Test",
-                  "lastName":User,
+                  "lastName":null,
                   "avatar":null,
                   "companyName":null,
                   "address":null,
