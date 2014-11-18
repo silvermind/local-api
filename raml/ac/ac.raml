@@ -1,0 +1,178 @@
+#%RAML 0.8
+---
+title: AC REST API
+version: v1
+baseUri: https://ac.test/{version}
+mediaType: application/json
+securitySchemes:
+  - basic:
+      description: |
+        Authentication to the API occurs via HTTP Basic Auth. Provide your API key as the basic auth username. You do not
+        need to provide a password.
+      type: Basic Authentication
+      describedBy:
+        headers:
+          Authorization:
+            description: |
+              The Authorization field value consists of credentials
+              containing the authentication information of the user agent for the
+              realm of the resource being requested.
+            type: string
+securedBy: [ basic ]
+resourceTypes:
+  - baseResource:
+      usage: |
+        This is base resource type described common request and response headers and error response codes
+        All Stripe resources should use it
+      get?: &common
+        headers:
+          Stripe-Version:
+            description: |
+              When we make backwards-incompatible changes to the API, we release new dated versions.
+            type: string
+            example: 2013-08-13
+        queryParameters:
+          expand[]:
+            description: |
+              Many objects contain the id of another object in their response properties. Those objects can be expanded in
+              inline with the expand request parameter. Objects that can be expanded are noted in this documentation.
+
+              This parameter is available on all API requests, and applies to the response of that request only. You can nest
+              expand requests with the dot property. For example, requesting invoice.customer on a charge will expand the invoice
+              property into a full invoice object, and will then expand the customer property on that invoice into a full customer
+              object. You can expand multiple things at once by sending an array.
+            type: string
+            repeat: true
+            example: expand%5B%5D=customer
+        responses:
+          400:
+            description: |
+              Bad Request - Often missing a required parameter.
+            body: &errorSchemas
+              schema: |
+                {
+                    "type":"object",
+                    "$schema": "http://json-schema.org/draft-03/schema",
+                    "id": "http://jsonschema.net",
+                    "required":false,
+                    "properties":{
+                        "error": {
+                            "type":"object",
+                            "id": "http://jsonschema.net/error",
+                            "required":true,
+                            "properties":{
+                                "code": {
+                                    "type":"string",
+                                    "id": "http://jsonschema.net/error/code",
+                                    "required":false
+                                },
+                                "message": {
+                                    "type":"string",
+                                    "id": "http://jsonschema.net/error/message",
+                                    "required":true
+                                },
+                                "param": {
+                                    "type":"string",
+                                    "id": "http://jsonschema.net/error/param",
+                                    "required":false
+                                },
+                                "type": {
+                                    "type":"string",
+                                    "id": "http://jsonschema.net/error/type",
+                                    "required":true
+                                }
+                            }
+                        }
+                    }
+                }
+              example: |
+                {
+                  "error": {
+                    "type": "invalid_request_error",
+                    "message": "No such charge: ch_2Vcu103KQjX3Ey",
+                    "code": "missing",
+                    "param": "id"
+                  }
+                }
+          401:
+            description: |
+              Unauthorized - No valid API key provided.
+            body: *errorSchemas
+          402:
+            description: |
+              Request Failed - Parameters were valid but request failed.
+            body: *errorSchemas
+          404:
+            description: |
+              Not Found - The requested item doesn't exist.
+            body: *errorSchemas
+          500:
+            description: |
+              Server errors - something went wrong on Stripe's end.
+            body: *errorSchemas
+          502:
+            description: |
+              Server errors - something went wrong on Stripe's end.
+            body: *errorSchemas
+          503:
+            description: |
+              Server errors - something went wrong on Stripe's end.
+            body: *errorSchemas
+          504:
+            description: |
+              Server errors - something went wrong on Stripe's end.
+            body: *errorSchemas
+      put?: *common
+      post?: *common
+      delete?: *common
+/api:
+  displayName: API
+  type: baseResource
+  /notifications:
+    displayName: Notifications
+    type: baseResource
+    get:
+      responses:
+        200:
+          body:
+            example: |
+              [
+                {"id":1, "title":"Welcome to your Account Center", "type":"success", "createdAt":1394898333000, "updatedAt":1394898333000, "isRead":false,
+                "description": "Here you can organize and edit your applications." }
+              ]
+/system:
+  displayName: System
+  type: baseResource
+  /members:
+    displayName: Members
+    type: baseResource
+    /current:
+      displayName: Current
+      type: baseResource
+      get:
+        responses:
+          200:
+            body:
+              example: |
+                {
+                  "id":1,
+                  "createdAt":1392995348016,
+                  "updatedAt":1393003640686,
+                  "email":"test-user@test.pl",
+                  "firstName":"Test",
+                  "lastName":null,
+                  "avatar":null,
+                  "companyName":null,
+                  "address":null,
+                  "city":null,
+                  "country":null,
+                  "postCode":null,
+                  "gp":null,
+                  "fb":null,
+                  "gh":null,
+                  "tw":null,
+                  "twName":null,
+                  "nip":null,
+                  "data":null,
+                  "roleInClient":[317,156,1]
+                }
