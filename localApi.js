@@ -15,9 +15,15 @@ if (!argv.r) {
 
 app.use(bodyParser.json());
 
+// set global data
+global.lapi = {
+    argv: argv
+};
+
 var config = require('./config/config.js'),
     customUtils = require('./models/utils.js'),
     apiManager = require('./models/apiManager.js'),
+    templatesManager = require('./models/templatesManager.js'),
     oauthManager = require('./models/oauthManager.js')(config);
 
 var ramlAddress = argv.r,
