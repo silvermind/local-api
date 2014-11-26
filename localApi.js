@@ -1,4 +1,5 @@
 var express = require('express'),
+    path = require('path'),
     bodyParser = require("body-parser"),
     app = express(),
     _ = require('lodash'),
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 global.lapi = {
     argv: argv
 };
+global.appRoot = path.resolve(__dirname);
 
 var config = require('./config/config.js'),
     customUtils = require('./models/utils.js'),
