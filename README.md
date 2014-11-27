@@ -52,9 +52,12 @@ Example data is generated every time LocalAPI starts.
 
 Steps:
 1. load templates
+
 2. eval script
+
 3. stringify generated data
-3. save received string as json file in /examples directory
+
+4. save received string as json file in /examples directory
 
 ## Configuration
 File location: config/config.js
