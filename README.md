@@ -51,6 +51,7 @@ Format: js
 Example data is generated every time LocalAPI starts.
 
 Steps:
+
 1. load templates
 
 2. eval script
