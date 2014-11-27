@@ -49,6 +49,7 @@ Templates location: /templates
 Format: js
 
 Example data is generated every time LocalAPI starts.
+Faker JS library available to use.
 
 Steps:
 
@@ -59,6 +60,54 @@ Steps:
 3. stringify generated data
 
 4. save received string as json file in /examples directory
+
+Example template
+```
+module.exports = {
+    address: faker.address.streetAddress(),
+    avatar: faker.internet.avatar(),
+    city: faker.address.city(),
+    companyId: 1,
+    companyName: faker.company.companyName(),
+    country: faker.address.country(),
+    createdAt: faker.date.past(),
+    email: faker.internet.email(),
+    fb: null,
+    firstName: faker.name.firstName(),
+    id: 1,
+    lastName: faker.name.lastName(),
+    postCode: faker.address.zipCode(),
+    instancesAcl: {
+        1: 'admin',
+        2: 'viewer'
+    },
+    updatedAt: faker.date.recent()
+}
+```
+
+Generated data
+```
+{
+    "address": "6606 Emerald Roads",
+    "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/teeragit/128.jpg",
+    "city": "Aricview",
+    "companyId": 1,
+    "companyName": "Rempel-Dibbert",
+    "country": "French Guiana",
+    "createdAt": "2014-04-01T23:37:41.710Z",
+    "email": "Ruby_Schaden@hotmail.com",
+    "fb": null,
+    "firstName": "Vida",
+    "id": 1,
+    "lastName": "Wunsch",
+    "postCode": "24182-5971",
+    "instancesAcl": {
+        "1": "admin",
+        "2": "viewer"
+    },
+    "updatedAt": "2014-11-26T17:51:12.460Z"
+}
+```
 
 ## Configuration
 File location: config/config.js
