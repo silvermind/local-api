@@ -45,7 +45,7 @@ node localApi.js -r raml/test.raml
 - xxx.RAML - raml file
 
 ## Dummy data generator
-Templates location: /templates
+Templates location: `/templates`
 
 Format: js
 
@@ -110,7 +110,7 @@ Generated data
 ```
 
 ## Configuration
-File location: config/config.js
+File location: `config/config.js`
 
 Description:
 - port - port on which the application will run
