@@ -10,11 +10,14 @@ function prepareUrl(url) {
 function genJson(url) {
     var urlParts = url.split('/'),
         tmplFilename = urlParts.pop().replace(/\.js/, ''),
-        dirPath = urlParts.join('/') + '/',
         jsonPath, fileContent;
 
     fileContent = require(url);
     fileContent = JSON.stringify(fileContent);
+
+    urlParts.pop();
+    urlParts.push('examples');
+    var dirPath = urlParts.join('/') + '/';
 
     console.log('[log] Reading template: '.yellow + tmplFilename + '.js');
 
