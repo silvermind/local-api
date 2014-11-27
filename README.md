@@ -46,20 +46,20 @@ node localApi.js -r raml/test.raml
 
 ## Dummy data generator
 Templates location: /templates
+
 Format: js
 
 Example data is generated every time LocalAPI starts.
-Faker JS library available to use.
+
+[faker.js] library is available to use.
 
 Steps:
-
+```
 1. load templates
-
 2. eval script
-
 3. stringify generated data
-
 4. save received string as json file in /examples directory
+```
 
 Example template
 ```
