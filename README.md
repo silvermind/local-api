@@ -45,7 +45,7 @@ node localApi.js -r raml/test.raml
 - xxx.RAML - raml file
 
 ## Dummy data generator
-Templates location: /templates
+Templates location: `/templates`
 
 Format: js
 
