@@ -33,8 +33,11 @@ var ramlAddress = argv.r,
     ramlRoot,
     server;
 
-console.log('[log] Start loading raml'.yellow)
-ramlParser.loadFile(ramlAddress).then(function(data){
+console.log('[log] Gen templates'.yellow)
+templatesManager.run().then(function () {
+    console.log('[log] Start loading raml'.yellow);
+    return ramlParser.loadFile(ramlAddress);
+}).then(function(data){
 
     ramlRoot = data;
     apiManager.setRamlRoot(data);

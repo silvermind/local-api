@@ -1,5 +1,6 @@
 var fs = require('fs'),
-    path = require('path');
+    path = require('path'),
+    Q = require('q');
 global.faker = require('faker');
 
 function prepareUrl(url) {
@@ -17,17 +18,17 @@ function genJson(url) {
 
     console.log('[log] Reading template: '.yellow + tmplFilename + '.js');
 
-    fs.writeFile(dirPath + tmplFilename + '.json', fileContent, {flags: 'w'}, function (err) {
-        if (err) {throw new Error(err);}
-        console.log('[log] Data saved: '.yellow + tmplFilename + '.json');
-    })
+    fs.writeFileSync(dirPath + tmplFilename + '.json', fileContent, {flags: 'w'});
+
+    console.log('[log] Data saved: '.yellow + tmplFilename + '.json');
 }
 
 function readTemplates() {
 
     console.log('[log] Reading data templates'.yellow)
 
-    var url = prepareUrl(lapi.argv.r);
+    var deferred = Q.defer(),
+        url = prepareUrl(lapi.argv.r);
 
     fs.readdir(url, function (err, files) {
         if (err) {throw new Error(err);}
@@ -45,11 +46,13 @@ function readTemplates() {
             }
         }
 
-    })
-}
+        deferred.resolve();
 
-readTemplates();
+    })
+
+    return deferred.promise;
+}
 
 module.exports = {
-
-}
+    run: readTemplates
+};
