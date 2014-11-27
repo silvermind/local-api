@@ -110,7 +110,7 @@ Generated data
 ```
 
 ## Configuration
-File location: config/config.js
+File location: `config/config.js`
 
 Description:
 - port - port on which the application will run
