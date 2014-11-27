@@ -37,6 +37,33 @@ node localApi.js -r raml/test.raml
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
 
+## RAML directory structure
+- assets - additional files
+- examples - data exmaples
+- schemas - json schemas
+- templates - dummy data templates
+- xxx.RAML - raml file
+
+## Dummy data generator
+Templates location: /templates
+Format: js
+
+Example data is generated every time LocalAPI starts.
+
+Steps:
+1. load templates
+2. eval script
+3. stringify generated data
+3. save received string as json file in /examples directory
+
+## Configuration
+File location: config/config.js
+
+Description:
+- port - port on which the application will run
+- baseUrl - address to which OAuth simulator redirects the request after authorization
+- appToken - token which is passed after authorization by OAuth simulator
+
 ## OAuth testing mock
 There are two available resources simulating OAuth module.
 
@@ -83,11 +110,3 @@ Data:
   “access_token”: YYY
 }
 ```
-
-## Configuration
-File location: config/config.js
-
-Description:
-- port - port on which the application will run
-- baseUrl - address to which OAuth simulator redirects the request after authorization
-- appToken - token which is passed after authorization by OAuth simulator

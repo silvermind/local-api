@@ -1,178 +1,140 @@
 #%RAML 0.8
----
-title: AC REST API
-version: v1
-baseUri: https://ac.test/{version}
-mediaType: application/json
-securitySchemes:
-  - basic:
-      description: |
-        Authentication to the API occurs via HTTP Basic Auth. Provide your API key as the basic auth username. You do not
-        need to provide a password.
-      type: Basic Authentication
-      describedBy:
-        headers:
-          Authorization:
-            description: |
-              The Authorization field value consists of credentials
-              containing the authentication information of the user agent for the
-              realm of the resource being requested.
-            type: string
-securedBy: [ basic ]
-resourceTypes:
-  - baseResource:
-      usage: |
-        This is base resource type described common request and response headers and error response codes
-        All Stripe resources should use it
-      get?: &common
-        headers:
-          Stripe-Version:
-            description: |
-              When we make backwards-incompatible changes to the API, we release new dated versions.
-            type: string
-            example: 2013-08-13
-        queryParameters:
-          expand[]:
-            description: |
-              Many objects contain the id of another object in their response properties. Those objects can be expanded in
-              inline with the expand request parameter. Objects that can be expanded are noted in this documentation.
+title: "AirAsia REST API"
+version: "v2"
+baseUri: "https://api.isaacloud.com/{version}"
+protocols: [HTTPS]
+mediaType: "application/json"
 
-              This parameter is available on all API requests, and applies to the response of that request only. You can nest
-              expand requests with the dot property. For example, requesting invoice.customer on a charge will expand the invoice
-              property into a full invoice object, and will then expand the customer property on that invoice into a full customer
-              object. You can expand multiple things at once by sending an array.
-            type: string
-            repeat: true
-            example: expand%5B%5D=customer
+#documentation:
+# - title: Getting Started
+#   content: !include getting-started.md
+# - title: Basics of Authentication
+#   content: !include basics-of-authentication.md
+
+schemas:
+ - Error: !include schemas/error.schema.json
+
+resourceTypes:
+  - collection:
+      description: Collection of available <<resourcePathName>>.
+      get?:
         responses:
-          400:
-            description: |
-              Bad Request - Often missing a required parameter.
-            body: &errorSchemas
-              schema: |
-                {
-                    "type":"object",
-                    "$schema": "http://json-schema.org/draft-03/schema",
-                    "id": "http://jsonschema.net",
-                    "required":false,
-                    "properties":{
-                        "error": {
-                            "type":"object",
-                            "id": "http://jsonschema.net/error",
-                            "required":true,
-                            "properties":{
-                                "code": {
-                                    "type":"string",
-                                    "id": "http://jsonschema.net/error/code",
-                                    "required":false
-                                },
-                                "message": {
-                                    "type":"string",
-                                    "id": "http://jsonschema.net/error/message",
-                                    "required":true
-                                },
-                                "param": {
-                                    "type":"string",
-                                    "id": "http://jsonschema.net/error/param",
-                                    "required":false
-                                },
-                                "type": {
-                                    "type":"string",
-                                    "id": "http://jsonschema.net/error/type",
-                                    "required":true
-                                }
-                            }
-                        }
-                    }
-                }
-              example: |
-                {
-                  "error": {
-                    "type": "invalid_request_error",
-                    "message": "No such charge: ch_2Vcu103KQjX3Ey",
-                    "code": "missing",
-                    "param": "id"
-                  }
-                }
-          401:
-            description: |
-              Unauthorized - No valid API key provided.
-            body: *errorSchemas
-          402:
-            description: |
-              Request Failed - Parameters were valid but request failed.
-            body: *errorSchemas
+          200:
+            description: Success!
+            body:
+              application/json:
+                example: "example"
+                schema: "schema"
           404:
-            description: |
-              Not Found - The requested item doesn't exist.
-            body: *errorSchemas
-          500:
-            description: |
-              Server errors - something went wrong on Stripe's end.
-            body: *errorSchemas
-          502:
-            description: |
-              Server errors - something went wrong on Stripe's end.
-            body: *errorSchemas
-          503:
-            description: |
-              Server errors - something went wrong on Stripe's end.
-            body: *errorSchemas
-          504:
-            description: |
-              Server errors - something went wrong on Stripe's end.
-            body: *errorSchemas
-      put?: *common
-      post?: *common
-      delete?: *common
-/api:
-  displayName: API
-  type: baseResource
-  /notifications:
-    displayName: Notifications
-    type: baseResource
+            description: <<resourcePathName|!singularize>> not found
+            body:
+              application/json:
+                schema: Error
+                example: !include examples/404.error.example.json
+  - collection-item:
+      description: Entity representing a <<resourcePathName|!singularize>>
+      get?:
+        description: |
+          Get the <<resourcePathName|!singularize>>
+          with <<resourcePathName|!singularize>>Id =
+          {<<resourcePathName|!singularize>>Id}
+        responses:
+          200:
+            description: Success!
+            body:
+              application/json:
+                example: "example"
+                schema: "schema"
+          404:
+            description: <<resourcePathName|!singularize>> not found
+            body:
+              application/json:
+                schema: !include schemas/error.schema.json
+                example: !include examples/404.error.example.json
+
+securitySchemes:
+  - oauth_2_0:
+      description: |
+        We use OAuth2 server implementation for authentication. It is an open standard and it provides a method for clients to access server resources on behalf of a resource owner.
+      type: OAuth 2.0
+      settings:
+        accessTokenUri: https://airasia.isaacloud/token
+        authorizationUri: https://airasia.isaacloud/authorize
+        baseUri: https://airasia.isaacloud
+      describedBy:
+          headers:
+              Authorization:
+                  description: |
+                     Used to send a valid OAuth 2 access token. Do not use
+                     with the "access_token" query string parameter.
+                  type: string
+          responses:
+              401:
+                  description: |
+                      Bad or expired token. This can happen if the user or Dropbox
+                      revoked or expired an access token. To fix, you should re-
+                      authenticate the user.
+              403:
+                  description: |
+                      Bad OAuth request (wrong consumer key, bad nonce, expired
+                      timestamp...). Unfortunately, re-authenticating the user won't help here.
+securedBy: [oauth_2_0]
+traits:
+ - pageable:
+    queryParameters:
+     offset:
+      description: Skip over a number of elements by specifying an offset value for the query
+      type: integer
+      required: false
+      example: 20
+      default: 0
+     limit:
+      description: Limit the number of elements on the response
+      type: integer
+      required: false
+      example: 80
+      default: 10
+ - tagable:
+    queryParameters:
+     groups:
+      description: the tags we want to narrow down our search to
+      type: string
+      example: "foo,bar"
+ - orderable:
+    queryParameters:
+     orderBy:
+      description: the fields we want to order by and the type of ordering
+      type: string
+      example: "id:DESC,foo:ASC"
+ - query:
+    queryParameters:
+     query:
+      description: |
+            JSON array [{"field1","value1","operator1"},{"field2","value2","operator2"},...,{"fieldN","valueN","operatorN"}] <<description>>
+      example: |
+            <<example>>
+/translations:
+  /en.json:
+    type: collection-item
+    displayName: config
     get:
       responses:
         200:
           body:
-            example: |
-              [
-                {"id":1, "title":"Welcome to your Account Center", "type":"success", "createdAt":1394898333000, "updatedAt":1394898333000, "isRead":false,
-                "description": "Here you can organize and edit your applications." }
-              ]
-/system:
-  displayName: System
-  type: baseResource
-  /members:
-    displayName: Members
-    type: baseResource
-    /current:
-      displayName: Current
-      type: baseResource
-      get:
-        responses:
-          200:
-            body:
-              example: |
-                {
-                  "id":1,
-                  "createdAt":1392995348016,
-                  "updatedAt":1393003640686,
-                  "email":"test-user@test.pl",
-                  "firstName":"Test",
-                  "lastName":null,
-                  "avatar":null,
-                  "companyName":null,
-                  "address":null,
-                  "city":null,
-                  "country":null,
-                  "postCode":null,
-                  "gp":null,
-                  "fb":null,
-                  "gh":null,
-                  "tw":null,
-                  "twName":null,
-                  "nip":null,
-                  "data":null,
-                  "roleInClient":[317,156,1]
-                }
+            example: !include assets/en.json
+/configuration.js:
+  type: collection-item
+  displayName: config
+  get:
+    responses:
+      200:
+        body:
+          example: !include assets/config.js
+#/me:
+#  type: collection-item
+#  displayName: Me (current user)
+#  get:
+#    responses:
+#      200:
+#        body:
+#          example: !include examples/me.json

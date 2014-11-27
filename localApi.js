@@ -1,4 +1,5 @@
 var express = require('express'),
+    path = require('path'),
     bodyParser = require("body-parser"),
     app = express(),
     _ = require('lodash'),
@@ -15,9 +16,16 @@ if (!argv.r) {
 
 app.use(bodyParser.json());
 
+// set global data
+global.lapi = {
+    argv: argv
+};
+global.appRoot = path.resolve(__dirname);
+
 var config = require('./config/config.js'),
     customUtils = require('./models/utils.js'),
     apiManager = require('./models/apiManager.js'),
+    templatesManager = require('./models/templatesManager.js'),
     oauthManager = require('./models/oauthManager.js')(config);
 
 var ramlAddress = argv.r,
@@ -25,8 +33,11 @@ var ramlAddress = argv.r,
     ramlRoot,
     server;
 
-console.log('[log] Start loading raml'.yellow)
-ramlParser.loadFile(ramlAddress).then(function(data){
+console.log('[log] Gen templates'.yellow)
+templatesManager.run().then(function () {
+    console.log('[log] Start loading raml'.yellow);
+    return ramlParser.loadFile(ramlAddress);
+}).then(function(data){
 
     ramlRoot = data;
     apiManager.setRamlRoot(data);
