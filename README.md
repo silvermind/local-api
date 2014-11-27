@@ -51,7 +51,7 @@ Format: js
 
 Example data is generated every time LocalAPI starts.
 
-[faker.js] library is available to use.
+https://github.com/marak/Faker.js/ library is available to use.
 
 Steps:
 ```
