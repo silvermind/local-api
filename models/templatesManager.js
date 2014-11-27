@@ -16,7 +16,7 @@ function prepareUrl(url) {
 function genJson(url) {
     var urlParts = url.split('/'),
         tmplFilename = urlParts.pop().replace(/\.js/, ''),
-        jsonPath, fileContent;
+        fileContent;
 
     fileContent = require(url);
     fileContent = JSON.stringify(fileContent);

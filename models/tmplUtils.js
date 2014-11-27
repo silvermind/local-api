@@ -9,7 +9,7 @@ module.exports = {
             loops = this.randomNumber(min, max);
         return function (fun) {
             for (var i = 0; i < loops; i++) {
-                _arr.push(fun());
+                _arr.push(fun(i));
             }
             return _arr;
         }
