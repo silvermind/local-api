@@ -29,7 +29,7 @@ node localApi.js -r RAML_STRING
 ```
 Substitute RAML_STRING with the path to the raml file. Example:
 ```
-node localApi.js -r raml/test.raml
+node localApi.js -r /Users/[username]/raml/test.raml
 ```
 - Wait a moment for the raml file to load. The following information will show:
 ```

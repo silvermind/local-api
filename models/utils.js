@@ -1,4 +1,5 @@
 module.exports = {
+
     restLogger: function (req, res, next) {
         console.log('##########################'.red);
         console.info('[REST] Request'.green);
@@ -9,4 +10,5 @@ module.exports = {
         console.log('Body: \n'.green, req.body);
         next();
     }
+
 }

@@ -1,16 +1,22 @@
 var fs = require('fs'),
     path = require('path'),
-    Q = require('q');
+    Q = require('q'),
+    tmplUtils = require('../models/tmplUtils');
+
 global.faker = require('faker');
+global.tmplUtils = tmplUtils;
 
 function prepareUrl(url) {
-    return path.dirname(url) + '/templates'
+    url = url.split('/');
+    url.pop();
+    url = url.join('/');
+    return url + '/templates'
 }
 
 function genJson(url) {
     var urlParts = url.split('/'),
         tmplFilename = urlParts.pop().replace(/\.js/, ''),
-        jsonPath, fileContent;
+        fileContent;
 
     fileContent = require(url);
     fileContent = JSON.stringify(fileContent);
@@ -43,7 +49,7 @@ function readTemplates() {
         while (i--) {
             if (patt.test(files[i])) {
 
-                tmplPath = appRoot + '/' + url + '/' + files[i];
+                tmplPath = url + '/' + files[i];
                 genJson(tmplPath);
 
             }
