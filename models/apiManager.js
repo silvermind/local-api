@@ -16,7 +16,6 @@ var getResponse = function (ramlRoot, req){
 
     // prepare req path for searching
     preparedPath = localUtils.pathPrepare(req.path);
-    preparedPath.splice(0,1);
 
     // find current resource in raml definitions
     currentResource = localUtils.findResource(ramlRoot, preparedPath);
@@ -63,9 +62,14 @@ var getResponse = function (ramlRoot, req){
 var localUtils = {
 
     pathPrepare: function(path) {
-        return path.split('/').map(function(elem){
-            return _.isNumber(elem) ? '_ID_' : elem;
-        });
+        var p = path.split('/');
+        p.splice(0,1);
+
+        if (_.last(p) === '') {
+            p.pop();
+        }
+
+        return p;
     },
 
     getContentType: function (req) {
@@ -80,9 +84,16 @@ var localUtils = {
 
             elementName = preparedPath[i];
             nextElement = _.find(currentResource.resources, function(resource){
-                relativeUri = resource.relativeUri;
-                return elementName === '_ID_' ? relativeUri.match(/{(.*?)}/) : relativeUri === '/'+elementName;
+                relativeUri = resource.relativeUri.substring(1);
+                return relativeUri === elementName;
             });
+
+            if (!nextElement) {
+                nextElement = _.find(currentResource.resources, function(resource){
+                    relativeUri = resource.relativeUri.substring(1);
+                    return relativeUri.match(/{(.*?)}/);
+                });
+            }
 
             if(nextElement) {
                 currentResource = nextElement;
