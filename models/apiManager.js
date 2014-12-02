@@ -1,60 +1,140 @@
-var ramlRoot,
-    _ = require('lodash');
+var _ = require('lodash'),
+    amanda = require('amanda'),
+    Q =  require('q'),
+    ramlRoot,
+    methodToValidate = ['post', 'put'];
 
-var getResponse = function (ramlRoot, path, method){
-    var resArr,
-        currentResource,
-        resultMethod,
-        resultResponse;
+var getResponse = function (ramlRoot, req){
 
-    resArr = path.split('/')
-        .map(function(x){
-            if(_.isNumber(x)){
-                return '_ID_';
+    var deffered = Q.defer();
+
+    var contentType, preparedPath, currentResource, currentMethod, successResponse;
+
+    contentType = localUtils.getContentType(req);
+
+    req.method = req.method.toLowerCase();
+
+    // prepare req path for searching
+    preparedPath = localUtils.pathPrepare(req.path);
+
+    // find current resource in raml definitions
+    currentResource = localUtils.findResource(ramlRoot, preparedPath);
+
+    // find chosen method in raml definitions
+    currentMethod = localUtils.findMethod(currentResource, req.method);
+
+    // find success response in this resource
+    successResponse = localUtils.findSuccessResponse(currentMethod.responses, contentType);
+
+    // check if sent data is valid (POST, PUT)
+    if (methodToValidate.indexOf(req.method) >= 0 && successResponse.schema) {
+
+        localUtils.validateJson(req.body, successResponse.schema, function (err) {
+            var _finalRes;
+            if (err) {
+                _finalRes = {
+                    data: {
+                        message: err['0'].message
+                    },
+                    code: 400
+                }
             } else {
-                return x;
+                _finalRes = {
+                    data: successResponse.example,
+                    code: 200
+                }
             }
+            deffered.resolve(_finalRes);
         });
 
-    resArr.splice(0,1);
-
-    currentResource = ramlRoot;
-
-    for (var i = 0, l=resArr.length; i < l; i++){
-        var elementName = resArr[i];
-        var nextElement = _.find(currentResource.resources, function(resource){
-            if(elementName === '_ID_'){
-                return resource.relativeUri.match(/{(.*?)}/);
-            } else {
-                return resource.relativeUri === '/'+elementName;
-            }
-        });
-
-        if(nextElement) {
-            currentResource = nextElement;
-        } else {
-            throw new Error('Specified path not in raml');
-        }
-    }
-
-    resultMethod = _.find(currentResource.methods, {method: method});
-    if(resultMethod){
-        var rr = resultMethod.responses;
-        //choose which success response is present
-        var resCode = ("200" in rr && "200") || ("201" in rr && "201") || ("202" in rr && "202");
-        if(resCode){
-//                console.log(resultMethod.responses[resCode].body['application/json'].example);
-
-            resultResponse = resultMethod.responses[resCode].body['application/json'].example;
-        } else {
-            throw new Error('No success response body in raml');
-        }
     } else {
-        throw new Error('Specified method not in raml');
+        // send response
+        deffered.resolve({
+            data: successResponse.example,
+            code: 200
+        });
     }
 
-    return resultResponse;
+    return deffered.promise;
+
 };
+
+var localUtils = {
+
+    pathPrepare: function(path) {
+        var p = path.split('/');
+        p.splice(0,1);
+
+        if (_.last(p) === '') {
+            p.pop();
+        }
+
+        return p;
+    },
+
+    getContentType: function (req) {
+        return req.header('Content-Type');
+    },
+
+    findResource: function (ramlRoot, preparedPath) {
+        var currentResource = ramlRoot,
+            elementName, nextElement, relativeUri;
+
+        for (var i = 0, l=preparedPath.length; i < l; i++){
+
+            elementName = preparedPath[i];
+            nextElement = _.find(currentResource.resources, function(resource){
+                relativeUri = resource.relativeUri.substring(1);
+                return relativeUri === elementName;
+            });
+
+            if (!nextElement) {
+                nextElement = _.find(currentResource.resources, function(resource){
+                    relativeUri = resource.relativeUri.substring(1);
+                    return relativeUri.match(/{(.*?)}/);
+                });
+            }
+
+            if(nextElement) {
+                currentResource = nextElement;
+            } else {
+                throw new Error('Specified path not in raml');
+            }
+
+        }
+
+        return currentResource;
+    },
+
+    findMethod: function (resource, method) {
+        var res = _.find(resource.methods, {method: method});
+        if (res) {
+            return res;
+        } else {
+            throw new Error('Specified method not in raml');
+        }
+    },
+
+    findSuccessResponse: function (responses, contentType) {
+        var code = responses['200'] || responses['201'] || responses ['202'];
+        if (!code) {throw new Error('Success response is not specified fot this resource');}
+
+        var body = code.body;
+        if (!body) {throw new Error('Body is not specified fot this resource');}
+
+        var succ = body[contentType];
+        if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
+
+        return succ;
+    },
+
+    validateJson: function (body, schema, succ) {
+        var jsonSchemaValidator = amanda('json');
+        schema = JSON.parse(schema);
+        jsonSchemaValidator.validate(body, schema, succ);
+    }
+
+}
 
 module.exports = {
 
@@ -64,14 +144,12 @@ module.exports = {
 
     ramlMethods: function(req,res){
 
-        var self = this,
-            url = req.url,
-            query = req.query,
-            method = req.method.toLowerCase();
+        var self = this;
 
         try{
-            var responseData = getResponse(ramlRoot, req.path, method);
-            res.status(200).send(responseData);
+            getResponse(ramlRoot, req).then(function (ramlRes) {
+                res.status(ramlRes.code).send(ramlRes.data);
+            });
         } catch(e){
             console.log(e);
             res.status(404).send({

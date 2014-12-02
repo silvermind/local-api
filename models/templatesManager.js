@@ -19,7 +19,7 @@ function genJson(url) {
         fileContent;
 
     fileContent = require(url);
-    fileContent = JSON.stringify(fileContent);
+    fileContent = JSON.stringify(fileContent, null, 4);
 
     urlParts.pop();
     urlParts.push('examples');

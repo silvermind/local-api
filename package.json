@@ -9,6 +9,7 @@
   "author": "Jakub <jakub.szalek@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "amanda": "^0.5.1",
     "body-parser": "^1.9.2",
     "colors": "^1.0.3",
     "express": "^4.10.1",
