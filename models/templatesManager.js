@@ -1,6 +1,7 @@
 var fs = require('fs'),
     path = require('path'),
     Q = require('q'),
+    findRemoveSync = require('find-remove'),
     tmplUtils = require('../models/tmplUtils');
 
 global.faker = require('faker');
@@ -33,6 +34,10 @@ function genJson(url) {
 }
 
 function readTemplates() {
+
+    console.log('[log] Clean examples directory'.yellow)
+
+    findRemoveSync(lapi.ramlRootDir + '/examples', {extensions: ['.json']});
 
     console.log('[log] Reading data templates'.yellow)
 
