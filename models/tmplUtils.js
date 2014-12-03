@@ -18,6 +18,12 @@ module.exports = {
             }
             return _arr;
         }
+    },
+
+    getTemplate: function(url) {
+        url = lapi.ramlRootDir + '/templates/' + url;
+        delete require.cache[require.resolve(url)];
+        return require(url);
     }
 
 }

@@ -9,6 +9,13 @@ module.exports = {
         console.log('Headers: \n'.green, req.headers);
         console.log('Body: \n'.green, req.body);
         next();
+    },
+
+    getRamlRootDir: function (url) {
+        var _res = url.split('/');
+        _res.pop();
+        _res = _res.join('/');
+        return _res;
     }
 
 }

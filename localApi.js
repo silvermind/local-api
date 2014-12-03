@@ -16,27 +16,32 @@ if (!argv.r) {
 
 app.use(bodyParser.json());
 
-// set global data
-global.lapi = {
-    argv: argv
-};
-global.appRoot = path.resolve(__dirname);
-
 var config = require('./config/config.js'),
     customUtils = require('./models/utils.js'),
     apiManager = require('./models/apiManager.js'),
     templatesManager = require('./models/templatesManager.js'),
     oauthManager = require('./models/oauthManager.js')(config);
 
-var ramlAddress = argv.r,
-    ramlString,
-    ramlRoot,
+// set global data
+global.lapi = {
+    argv: argv, // run parameters
+    appRoot: path.resolve(__dirname), // app root dir path
+    ramlAddress: argv.r // raml url
+};
+
+// set raml root dir path
+global.lapi.ramlRootDir = customUtils.getRamlRootDir(lapi.ramlAddress);
+
+var ramlRoot,
     server;
 
 console.log('[log] Gen templates'.yellow)
+
 templatesManager.run().then(function () {
+
     console.log('[log] Start loading raml'.yellow);
-    return ramlParser.loadFile(ramlAddress);
+    return ramlParser.loadFile(lapi.ramlAddress);
+
 }).then(function(data){
 
     ramlRoot = data;
