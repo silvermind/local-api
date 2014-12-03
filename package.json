@@ -14,8 +14,10 @@
     "colors": "^1.0.3",
     "express": "^4.10.1",
     "faker": "^2.1.0",
+    "find-remove": "^0.2.5",
     "lodash": "^2.4.1",
     "minimist": "^1.1.0",
+    "node-fs-extra": "^0.8.1",
     "q": "^1.1.2",
     "raml-parser": "^0.8.7"
   },
