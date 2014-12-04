@@ -122,8 +122,14 @@ var localUtils = {
         var body = code.body;
         if (!body) {throw new Error('Body is not specified fot this resource');}
 
-        var succ = body[contentType];
-        if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
+        var succ;
+        if (contentType) {
+            succ = body[contentType];
+            if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
+        } else {
+            succ = body['application/json'];
+            if (!succ) {throw new Error('No data for undefined Content-Type');}
+        }
 
         return succ;
     },
