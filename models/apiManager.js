@@ -24,7 +24,7 @@ var getResponse = function (ramlRoot, req){
     currentMethod = localUtils.findMethod(currentResource, req.method);
 
     // find success response in this resource
-    successResponse = localUtils.findSuccessResponse(currentMethod.responses, contentType);
+    successResponse = localUtils.findSuccessResponse(currentMethod.responses, contentType, req.method);
 
     // check if sent data is valid (POST, PUT)
     if (methodToValidate.indexOf(req.method) >= 0 && successResponse.schema) {
@@ -115,7 +115,7 @@ var localUtils = {
         }
     },
 
-    findSuccessResponse: function (responses, contentType) {
+    findSuccessResponse: function (responses, contentType, method) {
         var code = responses['200'] || responses['201'] || responses ['202'];
         if (!code) {throw new Error('Success response is not specified fot this resource');}
 
@@ -124,6 +124,7 @@ var localUtils = {
 
         var succ;
         if (contentType) {
+            contentType = contentType.split(';')[0];
             succ = body[contentType];
             if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
         } else {
