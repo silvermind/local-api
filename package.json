@@ -20,7 +20,7 @@
     "node-fs-extra": "^0.8.1",
     "openid-connect": "^1.2.2",
     "q": "^1.1.2",
-    "raml-parser": "^0.8.7"
+    "raml-parser": "isaacloud/raml-js-parser"
   },
   "devDependencies": {
     "gulp": "^3.8.9",
