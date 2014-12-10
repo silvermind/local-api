@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
 
     stringId: function (l) {
@@ -21,7 +23,7 @@ module.exports = {
     },
 
     getTemplate: function(url) {
-        url = lapi.ramlRootDir + '/templates/' + url;
+        url = path.join(lapi.ramlRootDir, 'templates', url);
         delete require.cache[require.resolve(url)];
         return require(url);
     }

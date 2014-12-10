@@ -8,23 +8,27 @@ global.faker = require('faker');
 global.tmplUtils = tmplUtils;
 
 function prepareUrl(url) {
-    url = url.split('/');
+    url = url.split(path.sep);
     url.pop();
-    url = url.join('/');
-    return url + '/templates'
+    url = url.join(path.sep);
+
+    return path.join(url, 'templates');
 }
 
 function genJson(url) {
-    var urlParts = url.split('/'),
-        tmplFilename = urlParts.pop().replace(/\.js/, ''),
+    
+    var urlParts = url.split(path.sep),
+        tmplFilename = path.basename(url, '.js'),
         fileContent;
+
+    urlParts.pop();
 
     fileContent = require(url);
     fileContent = JSON.stringify(fileContent, null, 4);
 
     urlParts.pop();
     urlParts.push('examples');
-    var dirPath = urlParts.join('/') + '/';
+    var dirPath = urlParts.join(path.sep) + path.sep;
 
     console.log('[log] Reading template: '.yellow + tmplFilename + '.js');
 
@@ -35,11 +39,11 @@ function genJson(url) {
 
 function readTemplates() {
 
-    console.log('[log] Clean examples directory'.yellow)
+    console.log('[log] Clean examples directory'.yellow);
 
-    findRemoveSync(lapi.ramlRootDir + '/examples', {extensions: ['.json']});
+    findRemoveSync(path.join(lapi.ramlRootDir,'examples'), {extensions: ['.json']});
 
-    console.log('[log] Reading data templates'.yellow)
+    console.log('[log] Reading data templates'.yellow);
 
     var deferred = Q.defer(),
         url = prepareUrl(lapi.argv.r);
@@ -54,7 +58,7 @@ function readTemplates() {
         while (i--) {
             if (patt.test(files[i])) {
 
-                tmplPath = url + '/' + files[i];
+                tmplPath = path.join(url, files[i]);
                 genJson(tmplPath);
 
             }

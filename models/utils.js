@@ -1,3 +1,5 @@
+var path = require('path');
+
 module.exports = {
 
     restLogger: function (req, res, next) {
@@ -12,10 +14,9 @@ module.exports = {
     },
 
     getRamlRootDir: function (url) {
-        var _res = url.split('/');
+        var _res = url.split(path.sep);
         _res.pop();
-        _res = _res.join('/');
-        return _res;
+        return _res.join(path.sep);
     }
 
 }

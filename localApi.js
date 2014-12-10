@@ -35,7 +35,7 @@ global.lapi.ramlRootDir = customUtils.getRamlRootDir(lapi.ramlAddress);
 var ramlRoot,
     server;
 
-console.log('[log] Gen templates'.yellow)
+console.log('[log] Gen templates'.yellow);
 
 templatesManager.run().then(function () {
 
@@ -50,8 +50,8 @@ templatesManager.run().then(function () {
 
     app.use(customUtils.restLogger)
 
-    app.get('/oauth/auth', oauthManager.auth);
-    app.all('/oauth/token', oauthManager.token);
+    //app.get('/oauth/auth', oauthManager.auth);
+    //app.all('/oauth/token', oauthManager.token);
     app.all('*', apiManager.ramlMethods);
 
     server = app.listen(config.port, function () {
