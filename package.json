@@ -1,6 +1,6 @@
 {
   "name": "localapi",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Local API based on raml",
   "main": "localApi.js",
   "repository": {
@@ -29,6 +29,5 @@
     "q": "^1.1.2",
     "raml-parser": "isaacloud/raml-js-parser"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
