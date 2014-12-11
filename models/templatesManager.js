@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    fse = require('fs-extra'),
     path = require('path'),
     Q = require('q'),
     findRemoveSync = require('find-remove'),
@@ -39,16 +40,20 @@ function genJson(url) {
 
 function readTemplates() {
 
-    console.log('[localapi] Clean examples directory'.yellow);
-
-    findRemoveSync(path.join(lapi.ramlRootDir,'examples'), {extensions: ['.json']});
-
-    console.log('[localapi] Reading data templates'.yellow);
-
     var deferred = Q.defer(),
-        url = path.join(lapi.ramlRootDir, 'templates');
+        pathTemplates = path.join(lapi.ramlRootDir, 'templates'),
+        pathExmaples = path.join(lapi.ramlRootDir, 'examples');
 
-    fs.readdir(url, function (err, files) {
+    // create 'examples' dir if doesn't exist
+    fse.mkdirsSync(pathExmaples);
+
+    console.log('[localapi] Clean examples directory'.cyan);
+
+    findRemoveSync(pathExmaples, {extensions: ['.json']});
+
+    console.log('[localapi] Reading data templates'.cyan);
+
+    fs.readdir(pathTemplates, function (err, files) {
         if (err) {throw new Error(err);}
 
         var i = files.length,
@@ -58,7 +63,7 @@ function readTemplates() {
         while (i--) {
             if (patt.test(files[i])) {
 
-                tmplPath = path.join(url, files[i]);
+                tmplPath = path.join(pathTemplates, files[i]);
                 genJson(tmplPath);
 
             }

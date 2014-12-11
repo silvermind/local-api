@@ -1,59 +1,53 @@
 #LocalAPI
 LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
 The path to the raml file is passed as a parameter when the application is starting.
+<!---
 LocalAPI also allows for simulating the basic functionality of the OAuth library.
+--->
 
 ## Installation
 - Install Node.js from http://nodejs.org/
-- Copy LocalAPI repository using the command
+- Install LocalAPI module via npm
 ```
-git clone git@github.com:isaacloud/local-api.git
-```
-- Go to the directory using the command
-```
-cd local-api
-```
-- Run command to download all dependencies
-```
-npm install
+npm install -g localapi
 ```
 
 ## Usage
-- Go to project directory
+- Create RAML directory with [specified structure](#raml-directory-structure)
+- Enter RAML directory
 ```
-cd local-api
+cd example_raml
 ```
 - Run LocalAPI by command
 ```
-node localApi.js -r RAML_STRING
+localapi -r {YOUR_RAML_FILENAME}.raml
 ```
-Substitute RAML_STRING with the path to the raml file. Example:
+Substitute `{YOUR_RAML_FILENAME}.raml` with the your raml filename. Example:
 ```
-node localApi.js -r /Users/[username]/raml/test.raml
+localapi -r raml_example_file.raml
 ```
-- Wait a moment for the raml file to load. The following information will show:
+- Wait a moment while the raml file is loaded and json files with dummy data are generated. The following information will show:
 ```
 [localapi] Raml loading finished
+[localapi] App listening at http://0.0.0.0:333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
 
 ## RAML directory structure
-- assets - additional files
-- examples - data exmaples
-- schemas - json schemas
-- templates - dummy data templates
-- xxx.RAML - raml file
+- [dir] assets - additional files
+- [dir] examples - dummy data json files (generated from templates)
+- [dir] static_examples - dummy data json files (static)
+- [dir] schemas - json schemas
+- [dir] templates - dummy data templates for [generator](#dummy-data-generator)
+- {YOUR_RAML_FILENAME}.RAML - raml file
 
 ## Dummy data generator
 
 ### Information
 Templates location: `/templates`
-
-Format: js
-
+Templates format: `*.js`
 Example data is generated every time LocalAPI starts.
-
-https://github.com/marak/Faker.js/ library is available to use.
+[Faker.js](https://github.com/marak/Faker.js/) library is available to use.
 
 ### How to
 - Create required directories with structure shown in "RAML directory structure"
