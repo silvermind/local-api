@@ -55,7 +55,7 @@ Example data is generated every time LocalAPI starts.<br />
 3. Run LocalAPI to generate json files ([see Usage](#usage))
 
 ### Example RAML directory
-
+See ([Example RAML directory](example_raml))
 
 ## Configuration
 File location: `config/config.js`<br />
