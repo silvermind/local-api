@@ -1,9 +1,8 @@
 #LocalAPI
 LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
-The path to the raml file is passed as a parameter when the application is starting.
-<!---
-LocalAPI also allows for simulating the basic functionality of the OAuth library.
---->
+Application also generate dummy data json files from templates and serve them as response body in API module.
+
+**In short: LocalAPI generate dummy data and run local API based on RAML.**
 
 ## Installation
 - Install Node.js from http://nodejs.org/
