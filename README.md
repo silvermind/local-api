@@ -1,8 +1,8 @@
 #LocalAPI
 LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
-Application also generate dummy data json files from templates and serve them as response body in API module.
+The application also generates dummy data json files from templates and serve them as a response body in API module.
 
-**In short: LocalAPI generate dummy data and run local API based on RAML.**
+**In short: LocalAPI generates dummy data and runs local API based on RAML.**
 
 ## Installation
 - Install Node.js from http://nodejs.org/
@@ -12,8 +12,8 @@ npm install -g localapi
 ```
 
 ## Usage
-- Create RAML directory with [specified structure](#raml-directory-structure)
-- Enter RAML directory
+- Create a RAML directory with [specified structure](#raml-directory-structure)
+- Enter the RAML directory
 ```
 cd example_raml
 ```
@@ -21,7 +21,7 @@ cd example_raml
 ```
 localapi -r {YOUR_RAML_FILENAME}.raml
 ```
-Substitute `{YOUR_RAML_FILENAME}.raml` with the your raml filename. Example:
+Substitute `{YOUR_RAML_FILENAME}.raml` with your raml filename. Example:
 ```
 localapi -r raml_example_file.raml
 ```
@@ -47,14 +47,14 @@ See [Example RAML directory](example_raml) with generated json files.
 ## Dummy data generator
 
 ### Information
-Templates location: `/templates`<br />
-Templates format: `*.js`<br />
+Template location: `/templates`<br />
+Template format: `*.js`<br />
 Example data is generated every time LocalAPI starts.<br />
 **TIP** - [Faker.js](https://github.com/marak/Faker.js/) library is available to use.
 
 ### How to
-1. Create required directories with structure shown in [RAML directory structure](#raml-directory-structure)
-2. Create javascript files with templates in `/templates` directory ([see example](#example)).
+1. Create required directories with the structure shown in [RAML directory structure](#raml-directory-structure)
+2. Create javascript files with templates in `/templates` directory ([see example](#example-raml)).
 3. Run LocalAPI to generate json files ([see Usage](#usage))
 
 ### Example RAML directory
@@ -62,25 +62,25 @@ See [Example RAML directory](example_raml) with generated json files.
 
 ### Methods for template generator
 - tmplUtils.**stringId([string_length])**<br>
-Return string with random characters.<br>
+Returns a string with random characters.<br>
 *string_length* - default: 24
 ```
 var id = tmplUtils.stringId();
 // id === rd9k0cgdi7ap2e29
 ```
 - tmplUtils.**getTemplate(template_filename)**<br>
-Generate and include dummy data json from template.<br>
+Generates and includes dummy data json from the template.<br>
 *template_filename* - path to template file
 ```
 var userData = tmplUtils.getTemplate('user.js');
 // userData === {user_data_json}
 ```
 - tmplUtils.**multiCollection(min_length, max_length)(loop_function)**<br>
-Create an array with a random number of elements beetween *min_length* and *max_length*.<br>
-Single item in array is result from *loop_function*. <br>
+Creates an array with a random number of elements between *min_length* and *max_length*.<br>
+Single item in array is the result of *loop_function*. <br>
 *min_length* - Minimal length of items in array<br>
 *max_length* - Maximal length of items in array<br>
-*loop_function* - Function that add single item to array
+*loop_function* - Function that adds a single item to an array
 ```
 var indexArray = tmplUtils.multiCollection(0, 20)(function (i) {
     return i;
@@ -102,7 +102,7 @@ Description:
 ---
 ## Changelog
 Version `1.1.1`
-- modify and register application as global in npm repository
-- change color of logs
-- make dir 'examples' if does not exist
+- modified and registered the application as global in npm repository
+- changed the color of logs
+- added feature: make dir 'examples' if does not exist
 - a lot of small fixes
