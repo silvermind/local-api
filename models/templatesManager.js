@@ -30,23 +30,23 @@ function genJson(url) {
     urlParts.push('examples');
     var dirPath = urlParts.join(path.sep) + path.sep;
 
-    console.log('[log] Reading template: '.yellow + tmplFilename + '.js');
+    console.log('[localapi] Reading template: '.yellow + tmplFilename + '.js');
 
     fs.writeFileSync(dirPath + tmplFilename + '.json', fileContent, {flags: 'w'});
 
-    console.log('[log] Data saved: '.yellow + tmplFilename + '.json');
+    console.log('[localapi] Data saved: '.yellow + tmplFilename + '.json');
 }
 
 function readTemplates() {
 
-    console.log('[log] Clean examples directory'.yellow);
+    console.log('[localapi] Clean examples directory'.yellow);
 
     findRemoveSync(path.join(lapi.ramlRootDir,'examples'), {extensions: ['.json']});
 
-    console.log('[log] Reading data templates'.yellow);
+    console.log('[localapi] Reading data templates'.yellow);
 
     var deferred = Q.defer(),
-        url = prepareUrl(lapi.argv.r);
+        url = path.join(lapi.ramlRootDir, 'templates');
 
     fs.readdir(url, function (err, files) {
         if (err) {throw new Error(err);}

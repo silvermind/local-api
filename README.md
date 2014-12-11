@@ -33,7 +33,7 @@ node localApi.js -r /Users/[username]/raml/test.raml
 ```
 - Wait a moment for the raml file to load. The following information will show:
 ```
-[log] Raml loading finished
+[localapi] Raml loading finished
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
 

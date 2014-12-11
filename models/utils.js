@@ -1,4 +1,5 @@
-var path = require('path');
+var path = require('path'),
+    fs =  require('fs');
 
 module.exports = {
 
@@ -14,6 +15,7 @@ module.exports = {
     },
 
     getRamlRootDir: function (url) {
+        url = fs.realpathSync(url);
         var _res = url.split(path.sep);
         _res.pop();
         return _res.join(path.sep);
