@@ -41,6 +41,8 @@ localapi -r raml_example_file.raml
 - [dir] templates - dummy data templates for [generator](#dummy-data-generator)
 - {YOUR_RAML_FILENAME}.RAML - raml file
 
+See [Example RAML directory](example_raml) with generated json files.
+
 ---
 ## Dummy data generator
 
