@@ -62,15 +62,15 @@ See [Example RAML directory](example_raml) with generated json files.
 Return string with random characters.<br>
 *string_length* - default: 24
 ```
-tmplUtils.stringId();
-// rd9k0cgdi7ap2e29
+var id = tmplUtils.stringId();
+// id === rd9k0cgdi7ap2e29
 ```
 - tmplUtils.**getTemplate(template_filename)**<br>
 Generate and include dummy data json from template.<br>
 *template_filename* - path to template file
 ```
-tmplUtils.getTemplate('user.js');
-// {user_data_json}
+var userData = tmplUtils.getTemplate('user.js');
+// userData === {user_data_json}
 ```
 - tmplUtils.**multiCollection(min_length, max_length)(loop_function)**<br>
 Create an array with a random number of elements beetween *min_length* and *max_length*.<br>
