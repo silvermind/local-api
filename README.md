@@ -31,6 +31,7 @@ localapi -r raml_example_file.raml
 [localapi] App listening at http://0.0.0.0:333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
+
 ---
 ## RAML directory structure
 - [dir] assets - additional files
@@ -39,6 +40,7 @@ localapi -r raml_example_file.raml
 - [dir] schemas - json schemas
 - [dir] templates - dummy data templates for [generator](#dummy-data-generator)
 - {YOUR_RAML_FILENAME}.RAML - raml file
+
 ---
 ## Dummy data generator
 
@@ -95,6 +97,7 @@ File location: `config/config.js`<br />
 Description:
 - port - port on which the application will run
 - appToken - token which is passed after authorization by OAuth simulator
+
 ---
 ## Changelog
 Version `1.1.1`
