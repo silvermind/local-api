@@ -32,7 +32,7 @@ localapi -r raml_example_file.raml
 [localapi] App listening at http://0.0.0.0:333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
-
+---
 ## RAML directory structure
 - [dir] assets - additional files
 - [dir] examples - dummy data json files (generated from templates)
@@ -40,7 +40,7 @@ localapi -r raml_example_file.raml
 - [dir] schemas - json schemas
 - [dir] templates - dummy data templates for [generator](#dummy-data-generator)
 - {YOUR_RAML_FILENAME}.RAML - raml file
-
+---
 ## Dummy data generator
 
 ### Information
@@ -55,14 +55,48 @@ Example data is generated every time LocalAPI starts.<br />
 3. Run LocalAPI to generate json files ([see Usage](#usage))
 
 ### Example RAML directory
-See ([Example RAML directory](example_raml))
+See [Example RAML directory](example_raml) with generated json files.
 
+### Methods for template generator
+- tmplUtils.**stringId([string_length])**<br>
+Return string with random characters.<br>
+*string_length* - default: 24
+```
+tmplUtils.stringId();
+// rd9k0cgdi7ap2e29
+```
+- tmplUtils.**getTemplate(template_filename)**<br>
+Generate and include dummy data json from template.<br>
+*template_filename* - path to template file
+```
+tmplUtils.getTemplate('user.js');
+// {user_data_json}
+```
+- tmplUtils.**multiCollection(min_length, max_length)(loop_function)**<br>
+Create an array with a random number of elements beetween *min_length* and *max_length*.<br>
+Single item in array is result from *loop_function*. <br>
+*min_length* - Minimal length of items in array<br>
+*max_length* - Maximal length of items in array<br>
+*loop_function* - Function that add single item to array
+```
+var indexArray = tmplUtils.multiCollection(0, 20)(function (i) {
+    return i;
+});
+// indexArray === [0, 1, 2, 3, 4, 5, 6]
+```
+```
+var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
+    return tmplUtils.getTemplate('user.js');
+});
+// indexArray === [{user_data_json_1}, {user_data_json_2}]
+```
+---
 ## Configuration
 File location: `config/config.js`<br />
 Description:
 - port - port on which the application will run
 - appToken - token which is passed after authorization by OAuth simulator
-
+---
 ## Changelog
 Version `1.1.1`
 - modify and register application as global in npm repository

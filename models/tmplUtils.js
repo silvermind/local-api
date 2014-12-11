@@ -3,8 +3,11 @@ var path = require('path');
 module.exports = {
 
     stringId: function (l) {
-        var len = l || 24;
-        return (Math.random() + 1).toString(36).substr(2, len);
+        var len = l || 24,
+            chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            result = '';
+        for (var i = len; i > 0; --i) result += chars[Math.round(Math.random() * (chars.length - 1))];
+        return result;
     },
 
     randomNumber: function (min, max) {
