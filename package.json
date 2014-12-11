@@ -1,13 +1,20 @@
 {
-  "name": "LocalApi",
-  "version": "1.0.0",
+  "name": "localapi",
+  "version": "1.1.1",
   "description": "Local API based on raml",
   "main": "localApi.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:isaacloud/local-api.git"
   },
-  "author": "Jakub <jakub.szalek@gmail.com>",
-  "license": "ISC",
+  "bugs": "https://github.com/isaacloud/local-api/issues",
+  "scripts": {},
+  "author": "SoInteractive",
+  "license": "MIT",
+  "preferGlobal": true,
+  "bin": {
+    "localapi": "./bin/localapi"
+  },
   "dependencies": {
     "amanda": "^0.5.1",
     "body-parser": "^1.9.2",
@@ -17,13 +24,10 @@
     "find-remove": "^0.2.5",
     "lodash": "^2.4.1",
     "minimist": "^1.1.0",
-    "node-fs-extra": "^0.8.1",
+    "fs-extra": "^0.13.*",
     "openid-connect": "^1.2.2",
     "q": "^1.1.2",
     "raml-parser": "isaacloud/raml-js-parser"
   },
-  "devDependencies": {
-    "gulp": "^3.8.9",
-    "gulp-watch": "^1.1.0"
-  }
+  "devDependencies": {}
 }

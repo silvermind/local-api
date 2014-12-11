@@ -1,166 +1,108 @@
 #LocalAPI
 LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
-The path to the raml file is passed as a parameter when the application is starting.
-LocalAPI also allows for simulating the basic functionality of the OAuth library.
+Application also generate dummy data json files from templates and serve them as response body in API module.
+
+**In short: LocalAPI generate dummy data and run local API based on RAML.**
 
 ## Installation
 - Install Node.js from http://nodejs.org/
-- Copy LocalAPI repository using the command
+- Install LocalAPI module via npm
 ```
-git clone git@github.com:isaacloud/local-api.git
-```
-- Go to the directory using the command
-```
-cd local-api
-```
-- Run command to download all dependencies
-```
-npm install
+npm install -g localapi
 ```
 
 ## Usage
-- Go to project directory
+- Create RAML directory with [specified structure](#raml-directory-structure)
+- Enter RAML directory
 ```
-cd local-api
+cd example_raml
 ```
 - Run LocalAPI by command
 ```
-node localApi.js -r RAML_STRING
+localapi -r {YOUR_RAML_FILENAME}.raml
 ```
-Substitute RAML_STRING with the path to the raml file. Example:
+Substitute `{YOUR_RAML_FILENAME}.raml` with the your raml filename. Example:
 ```
-node localApi.js -r /Users/[username]/raml/test.raml
+localapi -r raml_example_file.raml
 ```
-- Wait a moment for the raml file to load. The following information will show:
+- Wait a moment while the raml file is loaded and json files with dummy data are generated. The following information will show:
 ```
-[log] Raml loading finished
+[localapi] Raml loading finished
+[localapi] App listening at http://0.0.0.0:333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
 
+---
 ## RAML directory structure
-- assets - additional files
-- examples - data exmaples
-- schemas - json schemas
-- templates - dummy data templates
-- xxx.RAML - raml file
+- [dir] assets - additional files
+- [dir] examples - dummy data json files (generated from templates)
+- [dir] static_examples - dummy data json files (static)
+- [dir] schemas - json schemas
+- [dir] templates - dummy data templates for [generator](#dummy-data-generator)
+- {YOUR_RAML_FILENAME}.RAML - raml file
 
+See [Example RAML directory](example_raml) with generated json files.
+
+---
 ## Dummy data generator
 
 ### Information
-Templates location: `/templates`
-
-Format: js
-
-Example data is generated every time LocalAPI starts.
-
-https://github.com/marak/Faker.js/ library is available to use.
+Templates location: `/templates`<br />
+Templates format: `*.js`<br />
+Example data is generated every time LocalAPI starts.<br />
+**TIP** - [Faker.js](https://github.com/marak/Faker.js/) library is available to use.
 
 ### How to
-- Create required directories with structure shown in "RAML directory structure"
-- Create javascript files with templates in `/templates` directory (see example).
-- Run LocalAPI with parameter `-r` to your raml file to generate json files
+1. Create required directories with structure shown in [RAML directory structure](#raml-directory-structure)
+2. Create javascript files with templates in `/templates` directory ([see example](#example)).
+3. Run LocalAPI to generate json files ([see Usage](#usage))
 
-### Example
+### Example RAML directory
+See [Example RAML directory](example_raml) with generated json files.
 
-Template
+### Methods for template generator
+- tmplUtils.**stringId([string_length])**<br>
+Return string with random characters.<br>
+*string_length* - default: 24
 ```
-module.exports = {
-    address: faker.address.streetAddress(),
-    avatar: faker.internet.avatar(),
-    city: faker.address.city(),
-    companyId: 1,
-    companyName: faker.company.companyName(),
-    country: faker.address.country(),
-    createdAt: faker.date.past(),
-    email: faker.internet.email(),
-    fb: null,
-    firstName: faker.name.firstName(),
-    id: 1,
-    lastName: faker.name.lastName(),
-    postCode: faker.address.zipCode(),
-    instancesAcl: {
-        1: 'admin',
-        2: 'viewer'
-    },
-    updatedAt: faker.date.recent()
-}
+var id = tmplUtils.stringId();
+// id === rd9k0cgdi7ap2e29
 ```
-
-Generated data
+- tmplUtils.**getTemplate(template_filename)**<br>
+Generate and include dummy data json from template.<br>
+*template_filename* - path to template file
 ```
-{
-    "address": "6606 Emerald Roads",
-    "avatar": "https://s3.amazonaws.com/uifaces/faces/twitter/teeragit/128.jpg",
-    "city": "Aricview",
-    "companyId": 1,
-    "companyName": "Rempel-Dibbert",
-    "country": "French Guiana",
-    "createdAt": "2014-04-01T23:37:41.710Z",
-    "email": "Ruby_Schaden@hotmail.com",
-    "fb": null,
-    "firstName": "Vida",
-    "id": 1,
-    "lastName": "Wunsch",
-    "postCode": "24182-5971",
-    "instancesAcl": {
-        "1": "admin",
-        "2": "viewer"
-    },
-    "updatedAt": "2014-11-26T17:51:12.460Z"
-}
+var userData = tmplUtils.getTemplate('user.js');
+// userData === {user_data_json}
 ```
-
+- tmplUtils.**multiCollection(min_length, max_length)(loop_function)**<br>
+Create an array with a random number of elements beetween *min_length* and *max_length*.<br>
+Single item in array is result from *loop_function*. <br>
+*min_length* - Minimal length of items in array<br>
+*max_length* - Maximal length of items in array<br>
+*loop_function* - Function that add single item to array
+```
+var indexArray = tmplUtils.multiCollection(0, 20)(function (i) {
+    return i;
+});
+// indexArray === [0, 1, 2, 3, 4, 5, 6]
+```
+```
+var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
+    return tmplUtils.getTemplate('user.js');
+});
+// indexArray === [{user_data_json_1}, {user_data_json_2}]
+```
+---
 ## Configuration
-File location: `config/config.js`
-
+File location: `config/config.js`<br />
 Description:
 - port - port on which the application will run
-- baseUrl - address to which OAuth simulator redirects the request after authorization
-- appToken - token which is passed after authorization by OAuth simulator
 
-## OAuth testing mock
-There are two available resources simulating OAuth module.
-
-### GET /oauth/auth
-Returns redirect to address specified in the parameter and adds information on the token in a hashtag.
-**Required parameter: “origin”.**
-
-Example of use:
-
-Request
-```
-GET http://127.0.0.1:3333/oauth/auth?id=1&test=true&origin=http://test.com
-```
-Response
-```
-303 REDIRECT
-http://test.com?id=1&test=true&origin=http://test.com#access_token=111&token_type=Bearer&expires_in=3600
-```
-
-### POST /oauth/token
-Simulation of back-end authorization using the POST method.
-
-Example of use:
-
-Request
-```
-Method: POST
-Url: http://127.0.0.1:3333/oauth/token
-Data (payload):
-{“grant_type”: “client_credentials”}
-Headers:
-{
-  “Content-Type”: “application/json”,
-  “Authorization”: “Basic XXX”
-}
-```
-Response
-```
-200 OK
-Data:
-{
-  “token_type”: “Bearer”,
-  “expires_in”: “3600”,
-  “access_token”: YYY
-}
-```
+---
+## Changelog
+Version `1.1.1`
+- modify and register application as global in npm repository
+- change color of logs
+- make dir 'examples' if does not exist
+- a lot of small fixes

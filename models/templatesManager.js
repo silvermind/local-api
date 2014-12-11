@@ -1,4 +1,5 @@
 var fs = require('fs'),
+    fse = require('fs-extra'),
     path = require('path'),
     Q = require('q'),
     findRemoveSync = require('find-remove'),
@@ -30,25 +31,29 @@ function genJson(url) {
     urlParts.push('examples');
     var dirPath = urlParts.join(path.sep) + path.sep;
 
-    console.log('[log] Reading template: '.yellow + tmplFilename + '.js');
+    console.log('[localapi] Reading template: '.yellow + tmplFilename + '.js');
 
     fs.writeFileSync(dirPath + tmplFilename + '.json', fileContent, {flags: 'w'});
 
-    console.log('[log] Data saved: '.yellow + tmplFilename + '.json');
+    console.log('[localapi] Data saved: '.yellow + tmplFilename + '.json');
 }
 
 function readTemplates() {
 
-    console.log('[log] Clean examples directory'.yellow);
-
-    findRemoveSync(path.join(lapi.ramlRootDir,'examples'), {extensions: ['.json']});
-
-    console.log('[log] Reading data templates'.yellow);
-
     var deferred = Q.defer(),
-        url = prepareUrl(lapi.argv.r);
+        pathTemplates = path.join(lapi.ramlRootDir, 'templates'),
+        pathExmaples = path.join(lapi.ramlRootDir, 'examples');
 
-    fs.readdir(url, function (err, files) {
+    // create 'examples' dir if doesn't exist
+    fse.mkdirsSync(pathExmaples);
+
+    console.log('[localapi] Clean examples directory'.cyan);
+
+    findRemoveSync(pathExmaples, {extensions: ['.json']});
+
+    console.log('[localapi] Reading data templates'.cyan);
+
+    fs.readdir(pathTemplates, function (err, files) {
         if (err) {throw new Error(err);}
 
         var i = files.length,
@@ -58,7 +63,7 @@ function readTemplates() {
         while (i--) {
             if (patt.test(files[i])) {
 
-                tmplPath = path.join(url, files[i]);
+                tmplPath = path.join(pathTemplates, files[i]);
                 genJson(tmplPath);
 
             }

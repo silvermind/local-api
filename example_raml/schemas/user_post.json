@@ -1,0 +1,41 @@
+{
+	"type":"object",
+	"$schema": "http://json-schema.org/draft-03/schema",
+	"id": "http://jsonschema.net",
+	"required":false,
+	"properties":{
+		"birthDate": {
+			"type":"string",
+			"id": "http://jsonschema.net/birthDate",
+			"required":false,
+            "pattern":"^\\d{4}-\\d{2}-\\d{2}$"
+		},
+		"email": {
+			"type":"string",
+			"id": "http://jsonschema.net/email",
+			"required":true,
+            "format":"email"
+		},
+		"firstName": {
+			"type":"string",
+			"id": "http://jsonschema.net/firstName",
+			"required":false
+		},
+		"gender": {
+			"type":"string",
+			"id": "http://jsonschema.net/gender",
+			"required":false,
+            "enum": ["male", "female"]
+		},
+		"lastName": {
+			"type":"string",
+			"id": "http://jsonschema.net/lastName",
+			"required":false
+		},
+		"status": {
+			"type":"boolean",
+			"id": "http://jsonschema.net/status",
+			"required":false
+		}
+	}
+}
