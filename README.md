@@ -98,7 +98,6 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 File location: `config/config.js`<br />
 Description:
 - port - port on which the application will run
-- appToken - token which is passed after authorization by OAuth simulator
 
 ---
 ## Changelog
