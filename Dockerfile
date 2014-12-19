@@ -9,7 +9,8 @@ RUN  apt-get update
 RUN  apt-get -y install nodejs
 
 COPY . /src
-RUN cd /src; npm install
+WORKDIR "/src"
+RUN npm install
 
 WORKDIR "/src/bin"
 
