@@ -9,10 +9,7 @@ RUN  apt-get update
 RUN  apt-get -y install nodejs
 
 COPY . /src
-WORKDIR "/src"
-RUN npm install
-
-WORKDIR "/src/bin"
+RUN cd /src & npm install
 
 EXPOSE 3333
-CMD ["localapi", "-r", "/src/example_raml/raml_example_file.raml > /tmp/localapi_error.log > /tmp/localapi_log.log &"]
+CMD ["bin/localapi", "-r", "/src/example_raml/raml_example_file.raml > /tmp/localapi_error.log > /tmp/localapi_log.log &"]
