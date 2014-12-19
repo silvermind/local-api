@@ -11,7 +11,7 @@ RUN  apt-get -y install nodejs
 COPY . /src
 RUN cd /src; npm install
 
-RUN cd /src/bin
+WORKDIR "/src/bin"
 
 EXPOSE 3333
 CMD ["localapi", "-r", "/src/example_raml/raml_example_file.raml > /tmp/localapi_error.log > /tmp/localapi_log.log &"]
