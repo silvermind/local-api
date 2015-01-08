@@ -1,4 +1,4 @@
-#LocalAPI
+#LocalAPI 
 LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
 The application also generates dummy data json files from templates and serve them as a response body in API module.
 
