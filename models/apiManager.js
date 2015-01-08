@@ -39,8 +39,9 @@ var getResponse = function (ramlRoot, req){
                     code: 400
                 }
             } else {
+                var resBody = _.defaults(req.body, successResponse.example)
                 _finalRes = {
-                    data: successResponse.example,
+                    data: resBody,
                     code: 200
                 }
             }
