@@ -34,17 +34,22 @@ resourceTypes:
   type: collection
   displayName: Users
   post:
+    body:
+      application/json:
+        schema: !include schemas/user_post.json
+        example: !include examples/user_post.json
     responses:
       201:
         body:
           application/json:
-            schema: !include schemas/user_post.json
+            schema: !include schemas/user.json
             example: !include examples/user.json
   get:
     responses:
       200:
         body:
           application/json:
+            schema: !include schemas/users.json
             example: !include examples/users.json
   /{userId}:
     type: collection-item
@@ -54,11 +59,15 @@ resourceTypes:
         type: string
         required: true
     put:
+      body:
+        application/json:
+          schema: !include schemas/user_put.json
+          example: !include examples/user.json
       responses:
         200:
           body:
             application/json:
-              schema: !include schemas/user_put.json
+              schema: !include schemas/user.json
               example: !include examples/user.json
     delete:
       responses:
@@ -71,4 +80,5 @@ resourceTypes:
         200:
           body:
             application/json:
+              schema: !include schemas/user.json
               example: !include examples/user.json

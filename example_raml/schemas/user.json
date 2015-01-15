@@ -1,0 +1,55 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://jsonschema.net",
+    "type": "object",
+    "properties": {
+        "id": {
+            "id": "http://jsonschema.net/id",
+            "type": "string"
+        },
+        "birthDate": {
+            "id": "http://jsonschema.net/birthDate",
+            "type": "string"
+        },
+        "email": {
+            "id": "http://jsonschema.net/email",
+            "type": "string"
+        },
+        "firstName": {
+            "id": "http://jsonschema.net/firstName",
+            "type": "string"
+        },
+        "lastName": {
+            "id": "http://jsonschema.net/lastName",
+            "type": "string"
+        },
+        "gender": {
+            "id": "http://jsonschema.net/gender",
+            "type": "string"
+        },
+        "status": {
+            "id": "http://jsonschema.net/status",
+            "type": "boolean"
+        },
+        "createdAt": {
+            "id": "http://jsonschema.net/createdAt",
+            "type": "string"
+        },
+        "updatedAt": {
+            "id": "http://jsonschema.net/updatedAt",
+            "type": "string"
+        },
+        "idArray": {
+            "id": "http://jsonschema.net/idArray",
+            "type": "array",
+            "items": {
+                "id": "http://jsonschema.net/idArray/0",
+                "type": "string"
+            }
+        },
+        "points": {
+            "id": "http://jsonschema.net/points",
+            "type": "integer"
+        }
+    }
+}
