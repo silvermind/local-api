@@ -4,6 +4,11 @@
 	"id": "http://jsonschema.net",
 	"required":false,
 	"properties":{
+		"id": {
+			"type":"string",
+			"id": "http://jsonschema.net/firstName",
+			"required":false
+		},
 		"birthDate": {
 			"type":"string",
 			"id": "http://jsonschema.net/birthDate",

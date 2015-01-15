@@ -1,0 +1,59 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://jsonschema.net",
+    "type": "array",
+    "items": {
+        "id": "http://jsonschema.net/0",
+        "type": "object",
+        "properties": {
+            "id": {
+                "id": "http://jsonschema.net/0/id",
+                "type": "string"
+            },
+            "birthDate": {
+                "id": "http://jsonschema.net/0/birthDate",
+                "type": "string"
+            },
+            "email": {
+                "id": "http://jsonschema.net/0/email",
+                "type": "string"
+            },
+            "firstName": {
+                "id": "http://jsonschema.net/0/firstName",
+                "type": "string"
+            },
+            "lastName": {
+                "id": "http://jsonschema.net/0/lastName",
+                "type": "string"
+            },
+            "gender": {
+                "id": "http://jsonschema.net/0/gender",
+                "type": "string"
+            },
+            "status": {
+                "id": "http://jsonschema.net/0/status",
+                "type": "boolean"
+            },
+            "createdAt": {
+                "id": "http://jsonschema.net/0/createdAt",
+                "type": "string"
+            },
+            "updatedAt": {
+                "id": "http://jsonschema.net/0/updatedAt",
+                "type": "string"
+            },
+            "idArray": {
+                "id": "http://jsonschema.net/0/idArray",
+                "type": "array",
+                "items": {
+                    "id": "http://jsonschema.net/0/idArray/0",
+                    "type": "string"
+                }
+            },
+            "points": {
+                "id": "http://jsonschema.net/0/points",
+                "type": "integer"
+            }
+        }
+    }
+}

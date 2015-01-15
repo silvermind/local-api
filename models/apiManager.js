@@ -30,7 +30,7 @@ var getResponse = function (ramlRoot, req){
     postPutReq = methodToValidate.indexOf(req.method) >= 0;
 
     // find validation schema for request data
-    validationSchema = postPutReq ? localUtils.findValidationSchema(currentMethod) : null;
+    validationSchema = postPutReq ? localUtils.findValidationSchema(currentMethod, contentType) : null;
 
     // check if sent data is valid (POST, PUT)
     if (validationSchema) {
@@ -80,7 +80,7 @@ var localUtils = {
     },
 
     getContentType: function (req) {
-        return req.header('Content-Type');
+        return req.header('Content-Type').split(';')[0];
     },
 
     findResource: function (ramlRoot, preparedPath) {
@@ -131,7 +131,6 @@ var localUtils = {
 
         var succ;
         if (contentType) {
-            contentType = contentType.split(';')[0];
             succ = body[contentType];
             if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
         } else {
@@ -142,8 +141,8 @@ var localUtils = {
         return succ;
     },
 
-    findValidationSchema: function (method) {
-        return method && method.body && method.body[0] && method.body[0].schema ? method.body[0].schema : null;
+    findValidationSchema: function (method, contentType) {
+        return method && method.body && method.body[contentType] && method.body[contentType].schema ? method.body[contentType].schema : null;
     },
 
     validateJson: function (body, schema, succ) {
