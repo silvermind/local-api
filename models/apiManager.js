@@ -8,7 +8,7 @@ var getResponse = function (ramlRoot, req){
 
     var deffered = Q.defer();
 
-    var contentType, preparedPath, currentResource, currentMethod, successResponse;
+    var contentType, preparedPath, currentResource, currentMethod, successResponse, validationSchema, postPutReq;
 
     contentType = localUtils.getContentType(req);
 
@@ -26,10 +26,16 @@ var getResponse = function (ramlRoot, req){
     // find success response in this resource
     successResponse = localUtils.findSuccessResponse(currentMethod.responses, contentType, req.method);
 
-    // check if sent data is valid (POST, PUT)
-    if (methodToValidate.indexOf(req.method) >= 0 && successResponse.schema) {
+    // check if POST or PUT method
+    postPutReq = methodToValidate.indexOf(req.method) >= 0;
 
-        localUtils.validateJson(req.body, successResponse.schema, function (err) {
+    // find validation schema for request data
+    validationSchema = postPutReq ? localUtils.findValidationSchema(currentMethod) : null;
+
+    // check if sent data is valid (POST, PUT)
+    if (validationSchema) {
+
+        localUtils.validateJson(req.body, validationSchema, function (err) {
             var _finalRes;
             if (err) {
                 _finalRes = {
@@ -134,6 +140,10 @@ var localUtils = {
         }
 
         return succ;
+    },
+
+    findValidationSchema: function (method) {
+        return method && method.body && method.body[0] && method.body[0].schema ? method.body[0].schema : null;
     },
 
     validateJson: function (body, schema, succ) {
