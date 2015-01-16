@@ -101,6 +101,15 @@ Description:
 
 ---
 ## Changelog
+Version `1.1.4`
+- fixed merge of objects (example + request body) for response
+
+Version `1.1.3`
+- modified example_raml
+
+Version `1.1.2`
+- **changed path for json-schema for POST and PUT validation**
+
 Version `1.1.1`
 - modified and registered the application as global in npm repository
 - changed the color of logs
