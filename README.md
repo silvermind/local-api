@@ -101,18 +101,14 @@ Description:
 
 ---
 ## Changelog
-Version `1.1.4`
-- fixed merge of objects (example + request body) for response
-
-Version `1.1.3`
-- modified example_raml
-
-Version `1.1.2`
+Version `1.2.0`
 - **changed path for json-schema for POST and PUT validation** (consistent with the RAML documentation now)
 ```
 before: put/post -> responses -> {code} -> body -> {contentType} -> schema
 now: put/post -> body -> {contentType} -> schema
 ```
+- modified example_raml
+- fixed merge of objects (example + request body) for response
 
 Version `1.1.1`
 - modified and registered the application as global in npm repository
