@@ -108,7 +108,7 @@ Version `1.1.3`
 - modified example_raml
 
 Version `1.1.2`
-- **changed path for json-schema for POST and PUT validation** (consistent with the RAML documentation)
+- **changed path for json-schema for POST and PUT validation** (consistent with the RAML documentation now)
 ```
 before: put/post -> responses -> {code} -> body -> {contentType} -> schema
 now: put/post -> body -> {contentType} -> schema
