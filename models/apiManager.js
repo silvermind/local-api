@@ -45,7 +45,20 @@ var getResponse = function (ramlRoot, req){
                     code: 400
                 }
             } else {
-                var resBody = _.defaults(req.body, successResponse.example)
+
+                var resBody;
+
+                var example = JSON.parse(successResponse.example);
+
+                if (_.isObject(req.body) && _.isObject(example)) {
+                    resBody = _.clone(example, true);
+                    for (var key in req.body) {
+                        resBody[key] = req.body[key];
+                    }
+                } else {
+                    resBody = req.body;
+                }
+
                 _finalRes = {
                     data: resBody,
                     code: 200
@@ -142,12 +155,11 @@ var localUtils = {
     },
 
     findValidationSchema: function (method, contentType) {
-        return method && method.body && method.body[contentType] && method.body[contentType].schema ? method.body[contentType].schema : null;
+        return method && method.body && method.body[contentType] && method.body[contentType].schema ? JSON.parse(method.body[contentType].schema) : null;
     },
 
     validateJson: function (body, schema, succ) {
         var jsonSchemaValidator = amanda('json');
-        schema = JSON.parse(schema);
         jsonSchemaValidator.validate(body, schema, succ);
     }
 
