@@ -101,6 +101,8 @@ Description:
 
 ---
 ## Changelog
+Version `1.2.1`
+- fixed method that gets content-type of request
 Version `1.2.0`
 - **changed path for json-schema for POST and PUT validation** (consistent with the RAML documentation now)
 ```

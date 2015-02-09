@@ -93,7 +93,8 @@ var localUtils = {
     },
 
     getContentType: function (req) {
-        return req.header('Content-Type').split(';')[0];
+        var contentType = req.header('Content-Type');
+        return contentType ? contentType.split(';')[0] : null;
     },
 
     findResource: function (ramlRoot, preparedPath) {
