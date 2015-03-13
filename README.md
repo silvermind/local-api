@@ -102,6 +102,9 @@ Description:
 
 ---
 ## Changelog
+Version `1.2.2`
+- added support for custom headers in response
+
 Version `1.2.1`
 - fixed method that gets content-type of request
 
