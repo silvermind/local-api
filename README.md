@@ -29,9 +29,14 @@ localapi -r raml_example_file.raml
 - Wait a moment while the raml file is loaded and json files with dummy data are generated. The following information will show:
 ```
 [localapi] Raml loading finished
-[localapi] App listening at http://0.0.0.0:333
+[localapi] App listening at http://0.0.0.0:3333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
+
+To run LocalAPI on a custom port use -p argument
+```
+localapi -r raml_example_file.raml -p 3500
+```
 
 ---
 ## RAML directory structure
