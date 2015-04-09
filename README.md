@@ -102,6 +102,9 @@ Description:
 
 ---
 ## Changelog
+Version `1.2.3`
+- added a possibility to run an application on a custom port (-p argument)
+
 Version `1.2.2`
 - added support for custom headers in response
 
