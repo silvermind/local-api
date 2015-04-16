@@ -20,22 +20,30 @@ cd example_raml
 ```
 - Run LocalAPI by command
 ```
-localapi -r {YOUR_RAML_FILENAME}.raml
+localapi run {YOUR_RAML_FILENAME}.raml
 ```
 Substitute `{YOUR_RAML_FILENAME}.raml` with your raml filename. Example:
 ```
-localapi -r raml_example_file.raml
+localapi run raml_example_file.raml
 ```
 - Wait a moment while the raml file is loaded and json files with dummy data are generated. The following information will show:
 ```
-[localapi] Raml loading finished
-[localapi] App listening at http://0.0.0.0:3333
+info: [localapi] App running at http:/0.0.0.0:3333
 ```
 - LocalAPI will run at http://127.0.0.1:3333/
 
+## Run options
+
+### Custom port
 To run LocalAPI on a custom port use -p argument
 ```
-localapi -r raml_example_file.raml -p 3500
+localapi run raml_example_file.raml -p 3500
+```
+
+### Show running details
+To tun LocalAPI with additional logs use -d argument
+```
+localapi run raml_example_file.raml -d
 ```
 
 ---
