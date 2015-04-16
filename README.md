@@ -41,7 +41,7 @@ localapi run raml_example_file.raml -p 3500
 ```
 
 ### Show running details
-To tun LocalAPI with additional logs use -d argument
+To run LocalAPI with additional logs (details mode) use -d argument
 ```
 localapi run raml_example_file.raml -d
 ```
