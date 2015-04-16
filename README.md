@@ -115,6 +115,13 @@ Description:
 
 ---
 ## Changelog
+Version `1.3.0`
+- added commander.js library for better CLI usage
+- reorganised run commands
+- hidden unnecessary logs on app start
+- added 'details mode' which shows all logs on app start (-d argument)
+- reorganised logs
+
 Version `1.2.3`
 - added a possibility to run an application on a custom port (-p argument)
 
