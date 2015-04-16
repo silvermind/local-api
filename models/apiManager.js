@@ -1,6 +1,7 @@
 var _ = require('lodash'),
   amanda = require('amanda'),
   Q =  require('q'),
+  winston = require('winston'),
   ramlRoot,
   methodToValidate = ['post', 'put'];
 
@@ -202,7 +203,7 @@ module.exports = {
         res.status(ramlRes.code).send(ramlRes.data);
       });
     } catch(e){
-      console.log(e);
+      winston.error(e);
       res.status(404).send({
         "message": "This resource does not exist, look into the documentation",
         "code": 40402
