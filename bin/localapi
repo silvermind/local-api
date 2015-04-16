@@ -1,8 +1,40 @@
 #!/usr/bin/env node
 
-var path = require('path'),
-    fs   = require('fs'),
-    root  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib'),
-    localapi = require(path.join(root, 'localApi.js'));
+var pack = require('../package'),
+  program = require('commander'),
+  path = require('path'),
+  fs   = require('fs'),
+  winston = require('winston'),
+  root  = path.join(path.dirname(fs.realpathSync(__filename)), '../lib'),
+  localapi = require(path.join(root, 'localApi.js'));
 
-localapi.start();
+
+
+
+program
+  .version(pack.version)
+  .option('-d, --details', 'show details');
+
+program
+  .command('run <ramlPath>')
+  .option('-p, --port <port>', 'change default port')
+  .description('run LocalAPI, path to raml file required')
+  .action(function (ramlPath, options) {
+
+    setLogLevel(program.details);
+
+    localapi.start(ramlPath, options.port);
+
+  })
+
+program.parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp();
+}
+
+function setLogLevel(isDetails) {
+  if (isDetails) {
+    winston.level = 'debug';
+  }
+}
