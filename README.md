@@ -107,11 +107,6 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 });
 // indexArray === [{user_data_json_1}, {user_data_json_2}]
 ```
----
-## Configuration
-File location: `config/config.js`<br />
-Description:
-- port - port on which the application will run
 
 ---
 ## Changelog
