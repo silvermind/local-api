@@ -145,7 +145,7 @@ var localUtils = {
   },
 
   findSuccessResponse: function (responses, contentType, method) {
-    var code = responses['200'] || responses['201'] || responses ['202'];
+    var code = responses['200'] || responses['201'] || responses['202'];
     if (!code) {throw new Error('Success response is not specified fot this resource');}
 
     var body = code.body,
