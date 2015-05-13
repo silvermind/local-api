@@ -115,6 +115,9 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.3.1`
+- fixed json-schema validation issue
+
 Version `1.3.0`
 - added commander.js library for better CLI usage
 - reorganised run commands
