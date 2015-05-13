@@ -16,7 +16,7 @@
     "localapi": "./bin/localapi"
   },
   "dependencies": {
-    "amanda": "^0.5.1",
+    "amanda": "0.5.*",
     "body-parser": "^1.9.2",
     "colors": "^1.0.3",
     "commander": "^2.8.0",

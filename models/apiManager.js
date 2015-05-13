@@ -42,6 +42,7 @@ var getResponse = function (ramlRoot, req){
   if (validationSchema) {
 
     localUtils.validateJson(req.body, validationSchema, function (err) {
+
       var _finalRes;
       if (err) {
         _finalRes = {
@@ -126,6 +127,7 @@ var localUtils = {
 
       if(nextElement) {
         currentResource = nextElement;
+        nextElement = null;
       } else {
         throw new Error('Specified path not in raml');
       }
