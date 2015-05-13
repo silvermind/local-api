@@ -1,6 +1,6 @@
 {
   "name": "localapi",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "Local API based on raml",
   "main": "localApi.js",
   "repository": {
