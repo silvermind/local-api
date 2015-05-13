@@ -68,7 +68,7 @@ var getResponse = function (ramlRoot, req){
 
         _finalRes = {
           data: resBody,
-          code: 200,
+          code: successResponseObj.code,
           headers: currentHeaders
         }
       }
@@ -79,7 +79,7 @@ var getResponse = function (ramlRoot, req){
     // send response
     deffered.resolve({
       data: successResponse.example,
-      code: 200,
+      code: successResponseObj.code,
       headers: currentHeaders
     });
   }
@@ -147,7 +147,20 @@ var localUtils = {
   },
 
   findSuccessResponse: function (responses, contentType, method) {
-    var code = responses['200'] || responses['201'] || responses['202'];
+    var code = null,
+      responseCode = 0;
+
+    if (responses['200']) {
+      code = responses['200'];
+      responseCode = 200;
+    } else if (responses['201']) {
+      code = responses['201'];
+      responseCode = 201;
+    } else if (responses['202']) {
+      code = responses['202'];
+      responseCode = 202;
+    }
+
     if (!code) {throw new Error('Success response is not specified fot this resource');}
 
     var body = code.body,
@@ -165,7 +178,8 @@ var localUtils = {
 
     return {
       body: succ,
-      headers: headers
+      headers: headers,
+      code: responseCode
     };
   },
 
