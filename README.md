@@ -115,13 +115,9 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
-Version `1.3.3`
-- fixed issue with status code in response
-
-Version `1.3.2`
-- allow any body in request
-
-Version `1.3.1`
+Version `1.3.4`
+- all data types in the request body supported
+- improved handling for status codes fos success responses
 - fixed json-schema validation issue
 
 Version `1.3.0`
