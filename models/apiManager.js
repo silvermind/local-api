@@ -26,7 +26,7 @@ var getResponse = function (ramlRoot, req){
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
   // find success response in this resource
-  successResponseObj = localUtils.findSuccessResponse(currentMethod.responses, contentType, req.method);
+  successResponseObj = localUtils.findSuccessResponse(currentMethod.responses, contentType);
   successResponse = successResponseObj.body;
 
   // find success headers in this resource
@@ -146,20 +146,11 @@ var localUtils = {
     }
   },
 
-  findSuccessResponse: function (responses, contentType, method) {
-    var code = null,
-      responseCode = 0;
+  findSuccessResponse: function (responses, contentType) {
 
-    if (responses['200']) {
-      code = responses['200'];
-      responseCode = 200;
-    } else if (responses['201']) {
-      code = responses['201'];
-      responseCode = 201;
-    } else if (responses['202']) {
-      code = responses['202'];
-      responseCode = 202;
-    }
+    var resObj = localUtils.getFirstElem(responses),
+      code = resObj.value,
+      responseCode = resObj.key;
 
     if (!code) {throw new Error('Success response is not specified fot this resource');}
 
@@ -196,6 +187,16 @@ var localUtils = {
     for (var key in headers) {
       var curr = headers[key];
       res.set(key, curr.example);
+    }
+  },
+
+  getFirstElem: function (obj) {
+    for (var key in obj) {
+      return {
+        key: key,
+        value: obj[key]
+      }
+      break;
     }
   }
 
