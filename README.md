@@ -115,6 +115,9 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.3.5`
+- added default Content-Type for respones
+
 Version `1.3.4`
 - all data types in the request body supported
 - improved handling for status codes fos success responses
