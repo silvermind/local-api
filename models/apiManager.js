@@ -217,6 +217,9 @@ module.exports = {
         if (ramlRes.headers) {
           localUtils.setCustomHeaders(ramlRes.headers, res);
         }
+        if (!res.get('Content-Type')) {
+          res.set('Content-Type', 'application/json'); // set default content-type
+        }
         res.status(ramlRes.code).send(ramlRes.data);
       });
     } catch(e){
