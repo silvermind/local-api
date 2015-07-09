@@ -53,9 +53,13 @@ var getResponse = function (ramlRoot, req){
         }
       } else {
 
-        var resBody;
+        var resBody, example;
 
-        var example = JSON.parse(successResponse.example);
+        try {
+          example = JSON.parse(successResponse.example);
+        } catch(e) {
+          throw new Error('Success response example data is not valid JSON.')
+        }
 
         if (_.isObject(req.body) && _.isObject(example)) {
           resBody = _.clone(example, true);
@@ -152,16 +156,16 @@ var localUtils = {
       code = resObj.value,
       responseCode = resObj.key;
 
-    if (!code) {throw new Error('Success response is not specified fot this resource');}
+    if (!code) {throw new Error('Success response is not specified for this resource');}
 
     var body = code.body,
       headers = code.headers;
-    if (!body) {throw new Error('Body is not specified fot this resource');}
+    if (!body) {throw new Error('Body is not specified for this resource');}
 
     var succ;
     if (contentType) {
       succ = body[contentType];
-      if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified fot this resource');}
+      if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified for this resource');}
     } else {
       succ = body['application/json'];
       if (!succ) {throw new Error('No data for undefined Content-Type');}
