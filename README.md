@@ -115,6 +115,9 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.3.6`
+- fixed bug with baseUri and added support for api versioning
+
 Version `1.3.5`
 - added default Content-Type for respones
 
