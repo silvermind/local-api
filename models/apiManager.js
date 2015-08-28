@@ -2,6 +2,7 @@ var _ = require('lodash'),
   amanda = require('amanda'),
   Q =  require('q'),
   winston = require('winston'),
+  url = require('url'),
   ramlRoot,
   methodToValidate = ['post', 'put'];
 
@@ -9,15 +10,18 @@ var getResponse = function (ramlRoot, req){
 
   var deffered = Q.defer();
 
-  var contentType, preparedPath, currentResource, currentMethod, successResponse, validationSchema, postPutReq,
+  var contentType, basedPath, preparedPath, currentResource, currentMethod, successResponse, validationSchema, postPutReq,
     successResponseObj, currentHeaders;
 
   contentType = localUtils.getContentType(req);
 
   req.method = req.method.toLowerCase();
 
+  // remove baseUri path
+  basedPath = localUtils.removeBaseUri(req.path, ramlRoot.baseUri, ramlRoot.version);
+
   // prepare req path for searching
-  preparedPath = localUtils.pathPrepare(req.path);
+  preparedPath = localUtils.pathPrepare(basedPath);
 
   // find current resource in raml definitions
   currentResource = localUtils.findResource(ramlRoot, preparedPath);
@@ -93,6 +97,18 @@ var getResponse = function (ramlRoot, req){
 };
 
 var localUtils = {
+
+  removeBaseUri: function(path, baseUri, version) {
+    if (baseUri) {
+      var basePath = url.parse(baseUri).pathname.replace(/^\/?/, '/');
+          versionedBasePath = basePath.replace(/{version}/, version).replace(/%7Bversion%7D/, version),
+          re = new RegExp('^' + versionedBasePath),
+          basedPath = path.replace(re, '/').replace(/\/\//, '/');
+      return basedPath;
+    } else {
+      return path;
+    }
+  },
 
   pathPrepare: function(path) {
     var p = path.split('/');
