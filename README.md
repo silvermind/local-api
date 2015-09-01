@@ -1,9 +1,9 @@
 #LocalAPI
 <img align="right" src="https://github.com/isaacloud/local-api/raw/dev/logo.png">
-LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
-The application also generates dummy data json files from templates and serve them as a response body in API module.
+LocalAPI is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a RAML file.
+The application also generates dummy data json files from templates and use them as a response body in the API module.
 
-In short: LocalAPI generates dummy data and runs local API based on RAML.
+In short: LocalAPI generates dummy data and runs a local API based on RAML.
 
 ## Tutorial
 **Check out our tutorial for LocalAPI!**
@@ -116,7 +116,7 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 ---
 ## Changelog
 Version `1.3.6`
-- fixed bug with baseUri and added support for api versioning
+- fixed bug with baseURI and added support for API versioning
 
 Version `1.3.5`
 - added default Content-Type for respones
