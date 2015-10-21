@@ -115,6 +115,13 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.4.0`
+- fixed small bugs with schema validation
+- added better error handler
+- added support for empty response body
+- added support for response body to be the same as request body (should be set as null, ex. in raml_example_file.raml PUT /users/:id)
+- added support for PATCH method
+
 Version `1.3.6`
 - fixed bug with baseUri and added support for api versioning
 
