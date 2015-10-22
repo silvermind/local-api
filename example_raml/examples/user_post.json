@@ -1,13 +1,10 @@
 {
-    "birthDate": "1974-07-26",
-    "email": "Rosalee62@yahoo.com",
-    "firstName": "Roger",
-    "lastName": "Daugherty",
-    "gender": "female",
-    "status": true,
-    "idArray": [
-        "1seFipoWbgdMvF73Qu7dgOdf",
-        "4hcvpMCLPGJrczQMyKLg1BzM"
-    ],
-    "points": 74
+    "birthDate": "1983-04-10",
+    "email": "Albin.Tremblay39@yahoo.com",
+    "firstName": "Amaya",
+    "lastName": "Breitenberg",
+    "gender": "male",
+    "status": false,
+    "idArray": [],
+    "points": 60
 }
