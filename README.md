@@ -52,7 +52,10 @@ localapi run raml_example_file.raml -d
 ```
 
 ---
-## RAML directory structure
+## RAML 
+
+### Directory structure
+
 - [dir] assets - additional files
 - [dir] examples - dummy data json files (generated from templates)
 - [dir] static_examples - dummy data json files (static)
@@ -61,6 +64,15 @@ localapi run raml_example_file.raml -d
 - {YOUR_RAML_FILENAME}.RAML - raml file
 
 See [Example RAML directory](example_raml) with generated json files.
+
+### Supported responses
+
+LocalAPI supports:
+
+* **regular fake data responses for synchronous requests** (see [GET /users/:userId:](./example_raml/raml_example_file.raml) for reference)
+* **empty responses** (see [POST /users](./example_raml/raml_example_file.raml) for reference)
+* **responses containing data sent in the request body** (see [PUT /users/:userId:](./example_raml/raml_example_file.raml) for reference)
+* **responses for PATCH requests containing fake data merged with data sent in the request body** (see [PATCH /users/:userId:](./example_raml/raml_example_file.raml) for reference)
 
 ---
 ## Dummy data generator
@@ -115,6 +127,16 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.4.0`
+
+- fixed small bugs with *schema validation*
+- added better node and library *error handling*
+- added support for empty response body
+- added support for response body to be the same as request body:
+  - should be set to **false**
+  - example in *raml_example_file.raml* **PUT /users/:id**
+- added support for **PATCH** method
+
 Version `1.3.6`
 - fixed bug with baseURI and added support for API versioning
 

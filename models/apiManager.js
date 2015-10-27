@@ -1,17 +1,17 @@
-var _ = require('lodash'),
-  amanda = require('amanda'),
-  Q =  require('q'),
-  winston = require('winston'),
-  url = require('url'),
-  ramlRoot,
-  methodToValidate = ['post', 'put'];
+var _                = require('lodash'),
+    amanda           = require('amanda'),
+    Q                = require('q'),
+    winston          = require('winston'),
+    url              = require('url'),
+    ramlRoot,
+    methodToValidate = ['post', 'put', 'patch'];
 
-var getResponse = function (ramlRoot, req){
+var getResponse = function (ramlRoot, req) {
 
   var deffered = Q.defer();
 
-  var contentType, basedPath, preparedPath, currentResource, currentMethod, successResponse, validationSchema, postPutReq,
-    successResponseObj, currentHeaders;
+  var contentType, basedPath, preparedPath, currentResource, currentMethod, successResponse, validationSchema, postPutPatchReq,
+      successResponseObj, currentHeaders;
 
   contentType = localUtils.getContentType(req);
 
@@ -36,14 +36,14 @@ var getResponse = function (ramlRoot, req){
   // find success headers in this resource
   currentHeaders = successResponseObj.headers;
 
-  // check if POST or PUT method
-  postPutReq = methodToValidate.indexOf(req.method) >= 0;
+  // check if POST, PUT or PATCH method
+  postPutPatchReq = methodToValidate.indexOf(req.method) >= 0;
 
   // find validation schema for request data
-  validationSchema = postPutReq ? localUtils.findValidationSchema(currentMethod, contentType) : null;
+  validationSchema = postPutPatchReq ? localUtils.findValidationSchema(currentMethod, contentType) : null;
 
-  // check if sent data is valid (POST, PUT)
-  if (validationSchema && _.isPlainObject(req.body)) {
+  // check if sent data is valid (POST, PUT, PATCH)
+  if (validationSchema) {
 
     localUtils.validateJson(req.body, validationSchema, function (err) {
 
@@ -57,9 +57,19 @@ var getResponse = function (ramlRoot, req){
         }
       } else {
 
-        var resBody;
+        var resBody, example;
 
-        var example = JSON.parse(successResponse.example);
+        if (successResponse.example === false) {
+          example = req.body;
+        } else if (!successResponse.example) {
+          example = "";
+        } else {
+          try {
+            example = JSON.parse(successResponse.example);
+          } catch(e) {
+            example = successResponse.example;
+          }
+        }
 
         if (_.isObject(req.body) && _.isObject(example)) {
           resBody = _.clone(example, true);
@@ -67,7 +77,7 @@ var getResponse = function (ramlRoot, req){
             resBody[key] = req.body[key];
           }
         } else {
-          resBody = req.body;
+          resBody = example;
         }
 
         _finalRes = {
@@ -94,21 +104,21 @@ var getResponse = function (ramlRoot, req){
 
 var localUtils = {
 
-  removeBaseUri: function(path, baseUri, version) {
+  removeBaseUri: function (path, baseUri, version) {
     if (baseUri) {
       var basePath = url.parse(baseUri).pathname.replace(/^\/?/, '/');
-          versionedBasePath = basePath.replace(/{version}/, version).replace(/%7Bversion%7D/, version),
-          re = new RegExp('^' + versionedBasePath),
-          basedPath = path.replace(re, '/').replace(/\/\//, '/');
+      versionedBasePath = basePath.replace(/{version}/, version).replace(/%7Bversion%7D/, version),
+        re = new RegExp('^' + versionedBasePath),
+        basedPath = path.replace(re, '/').replace(/\/\//, '/');
       return basedPath;
     } else {
       return path;
     }
   },
 
-  pathPrepare: function(path) {
+  pathPrepare: function (path) {
     var p = path.split('/');
-    p.splice(0,1);
+    p.splice(0, 1);
 
     if (_.last(p) === '') {
       p.pop();
@@ -124,24 +134,24 @@ var localUtils = {
 
   findResource: function (ramlRoot, preparedPath) {
     var currentResource = ramlRoot,
-      elementName, nextElement, relativeUri;
+        elementName, nextElement, relativeUri;
 
-    for (var i = 0, l=preparedPath.length; i < l; i++){
+    for (var i = 0, l = preparedPath.length; i < l; i++) {
 
       elementName = preparedPath[i];
-      nextElement = _.find(currentResource.resources, function(resource){
+      nextElement = _.find(currentResource.resources, function (resource) {
         relativeUri = resource.relativeUri.substring(1);
         return relativeUri === elementName;
       });
 
       if (!nextElement) {
-        nextElement = _.find(currentResource.resources, function(resource){
+        nextElement = _.find(currentResource.resources, function (resource) {
           relativeUri = resource.relativeUri.substring(1);
           return relativeUri.match(/{(.*?)}/);
         });
       }
 
-      if(nextElement) {
+      if (nextElement) {
         currentResource = nextElement;
         nextElement = null;
       } else {
@@ -164,23 +174,31 @@ var localUtils = {
 
   findSuccessResponse: function (responses, contentType) {
 
-    var resObj = localUtils.getFirstElem(responses),
-      code = resObj.value,
-      responseCode = resObj.key;
+    var resObj       = localUtils.getFirstElem(responses),
+        code         = resObj.value,
+        responseCode = resObj.key;
 
-    if (!code) {throw new Error('Success response is not specified for this resource');}
+    if (!code) {
+      throw new Error('Success response is not specified for this resource');
+    }
 
-    var body = code.body,
-      headers = code.headers;
-    if (!body) {throw new Error('Body is not specified for this resource');}
+    var body    = code.body,
+        headers = code.headers;
+    if (!body) {
+      throw new Error('Body is not specified for this resource');
+    }
 
     var succ;
     if (contentType) {
       succ = body[contentType];
-      if (!succ) {throw new Error('Content-Type ' + contentType + ' is not specified for this resource');}
+      if (!succ) {
+        throw new Error('Content-Type ' + contentType + ' is not specified for this resource');
+      }
     } else {
       succ = body['application/json'];
-      if (!succ) {throw new Error('No data for undefined Content-Type');}
+      if (!succ) {
+        throw new Error('No data for undefined Content-Type');
+      }
     }
 
     return {
@@ -224,11 +242,11 @@ module.exports = {
     ramlRoot = raml;
   },
 
-  ramlMethods: function(req,res){
+  ramlMethods: function (req, res) {
 
     var self = this;
 
-    try{
+    try {
       getResponse(ramlRoot, req).then(function (ramlRes) {
         if (ramlRes.headers) {
           localUtils.setCustomHeaders(ramlRes.headers, res);
@@ -238,7 +256,7 @@ module.exports = {
         }
         res.status(ramlRes.code).send(ramlRes.data);
       });
-    } catch(e){
+    } catch (e) {
       winston.error(e);
       res.status(404).send({
         "message": "This resource does not exist, look into the documentation",
@@ -247,7 +265,6 @@ module.exports = {
     }
 
   }
-
 
 
 };
