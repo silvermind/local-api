@@ -1,6 +1,6 @@
-#LocalAPI
-<img align="right" src="https://github.com/isaacloud/local-api/raw/dev/logo.png">
-LocalAPI application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
+# LocalAPI
+<img align="right" src="./logo.jpg">
+**LocalAPI** application is based on Node.js library and allows for running a fully functional API on the basis of definitions included in a raml file.
 The application also generates dummy data json files from templates and serve them as a response body in API module.
 
 In short: LocalAPI generates dummy data and runs local API based on RAML.
@@ -9,10 +9,13 @@ In short: LocalAPI generates dummy data and runs local API based on RAML.
 **Check out our tutorial for LocalAPI!**
 https://github.com/isaacloud/local-api/wiki/Tutorial
 
+---
+
 
 ## Installation
 - Install Node.js from http://nodejs.org/
 - Install LocalAPI module via npm
+
 ```
 npm install -g localapi
 ```
@@ -20,33 +23,44 @@ npm install -g localapi
 ## Usage
 - Create a RAML directory with [specified structure](#raml-directory-structure)
 - Enter the RAML directory
+
 ```
 cd example_raml
 ```
+
 - Run LocalAPI by command
+
 ```
 localapi run {YOUR_RAML_FILENAME}.raml
 ```
+
 Substitute `{YOUR_RAML_FILENAME}.raml` with your raml filename. Example:
+
 ```
 localapi run raml_example_file.raml
 ```
+
 - Wait a moment while the raml file is loaded and json files with dummy data are generated. The following information will show:
+
 ```
 info: [localapi] App running at http:/0.0.0.0:3333
 ```
+
 - LocalAPI will run at http://127.0.0.1:3333/
+
 
 ## Run options
 
 ### Custom port
 To run LocalAPI on a custom port use -p argument
+
 ```
 localapi run raml_example_file.raml -p 3500
 ```
 
 ### Show running details
 To run LocalAPI with additional logs (details mode) use -d argument
+
 ```
 localapi run raml_example_file.raml -d
 ```
@@ -84,14 +98,14 @@ Example data is generated every time LocalAPI starts.<br />
 **TIP** - [Faker.js](https://github.com/marak/Faker.js/) library is available to use.
 
 ### How to
-1. Create required directories with the structure shown in [RAML directory structure](#raml-directory-structure)
-2. Create javascript files with templates in `/templates` directory ([see example](#example-raml)).
+1. Create required directories with the structure shown in [RAML directory structure](#directory-structure)
+2. Create javascript files with templates in `/templates` directory ([see example](#raml)).
 3. Run LocalAPI to generate json files ([see Usage](#usage))
 
 ### Example RAML directory
-See [Example RAML directory](example_raml) with generated json files.
+See [Example RAML directory](./example_raml) with generated json files.
 
-### Methods for template generator
+### Methods for template generator§§
 - tmplUtils.**stringId([string_length])**<br>
 Returns a string with random characters.<br>
 *string_length* - default: 24
@@ -165,7 +179,7 @@ Version `1.2.1`
 - fixed method that gets content-type of request
 
 Version `1.2.0`
-- **changed path for json-schema for POST and PUT validation** (consistent with the RAML documentation now)
+- changed path for json-schema for POST and PUT validation (consistent with the RAML documentation now)
 ```
 before: put/post -> responses -> {code} -> body -> {contentType} -> schema
 now: put/post -> body -> {contentType} -> schema
