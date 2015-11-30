@@ -1,5 +1,5 @@
 var _                = require('lodash'),
-    amanda           = require('amanda'),
+    Validator       = require('jsonschema').Validator,
     Q                = require('q'),
     winston          = require('winston'),
     url              = require('url'),
@@ -45,13 +45,15 @@ var getResponse = function (ramlRoot, req) {
   // check if sent data is valid (POST, PUT, PATCH)
   if (validationSchema) {
 
-    localUtils.validateJson(req.body, validationSchema, function (err) {
+    var result = localUtils.validateJson(req.body, validationSchema);
 
-      var _finalRes;
-      if (err) {
+
+    var _finalRes;
+      if( result.errors.length > 0 ) {
+        var error = result.errors.shift();
         _finalRes = {
           data: {
-            message: err['0'].message
+            message: error.stack.substr(result.propertyPath.length + 1)
           },
           code: 400
         }
@@ -87,7 +89,6 @@ var getResponse = function (ramlRoot, req) {
         }
       }
       deffered.resolve(_finalRes);
-    });
 
   } else {
     // send response
@@ -213,8 +214,8 @@ var localUtils = {
   },
 
   validateJson: function (body, schema, succ) {
-    var jsonSchemaValidator = amanda('json');
-    jsonSchemaValidator.validate(body, schema, succ);
+    var jsonSchemaValidator = new Validator();
+    return jsonSchemaValidator.validate(body, schema);
   },
 
   setCustomHeaders: function (headers, res) {
