@@ -29,6 +29,8 @@ var getResponse = function (ramlRoot, req) {
   // find chosen method in raml definitions
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
+  localUtils.checkRequestContentType(currentMethod,contentType)
+
   // find success response in this resource
   successResponseObj = localUtils.findSuccessResponse(currentMethod.responses, contentType);
   successResponse = successResponseObj.body;
@@ -133,6 +135,7 @@ var localUtils = {
   },
 
   findResource: function (ramlRoot, preparedPath) {
+
     var currentResource = ramlRoot,
         elementName, nextElement, relativeUri;
 
@@ -165,10 +168,22 @@ var localUtils = {
 
   findMethod: function (resource, method) {
     var res = _.find(resource.methods, {method: method});
+
     if (res) {
       return res;
     } else {
       throw new Error('Specified method not in raml');
+    }
+  },
+
+
+  checkRequestContentType: function(resource,contentType){
+    var reqContentType = resource.body[contentType];
+    var approvedContentType = Object.keys(resource.body)
+    if(reqContentType){
+      return reqContentType;
+    }else{
+      throw new Error('Content-Type ' + contentType + ' is not specified for this resource. Specified Content-Type: ' + approvedContentType);
     }
   },
 
@@ -224,7 +239,8 @@ var localUtils = {
       }
       break;
     }
-  }
+  },
+
 
 }
 
