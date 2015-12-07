@@ -141,6 +141,10 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.4.1`
+- add compatibility for draft v4
+- add compatibility for request Content-Type(urlencoded, text, raw)
+
 Version `1.4.0`
 
 - fixed small bugs with *schema validation*

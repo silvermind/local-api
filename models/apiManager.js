@@ -1,5 +1,5 @@
 var _                = require('lodash'),
-    amanda           = require('amanda'),
+    Validator       = require('jsonschema').Validator,
     Q                = require('q'),
     winston          = require('winston'),
     url              = require('url'),
@@ -29,6 +29,8 @@ var getResponse = function (ramlRoot, req) {
   // find chosen method in raml definitions
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
+  localUtils.checkRequestContentType(currentMethod,contentType)
+
   // find success response in this resource
   successResponseObj = localUtils.findSuccessResponse(currentMethod.responses, contentType);
   successResponse = successResponseObj.body;
@@ -45,13 +47,15 @@ var getResponse = function (ramlRoot, req) {
   // check if sent data is valid (POST, PUT, PATCH)
   if (validationSchema) {
 
-    localUtils.validateJson(req.body, validationSchema, function (err) {
+    var result = localUtils.validateJson(req.body, validationSchema);
 
-      var _finalRes;
-      if (err) {
+
+    var _finalRes;
+      if( result.errors.length > 0 ) {
+        var error = result.errors.shift();
         _finalRes = {
           data: {
-            message: err['0'].message
+            message: error.stack.substr(result.propertyPath.length + 1)
           },
           code: 400
         }
@@ -87,7 +91,6 @@ var getResponse = function (ramlRoot, req) {
         }
       }
       deffered.resolve(_finalRes);
-    });
 
   } else {
     // send response
@@ -133,6 +136,7 @@ var localUtils = {
   },
 
   findResource: function (ramlRoot, preparedPath) {
+
     var currentResource = ramlRoot,
         elementName, nextElement, relativeUri;
 
@@ -165,10 +169,22 @@ var localUtils = {
 
   findMethod: function (resource, method) {
     var res = _.find(resource.methods, {method: method});
+
     if (res) {
       return res;
     } else {
       throw new Error('Specified method not in raml');
+    }
+  },
+
+
+  checkRequestContentType: function(resource,contentType){
+    var reqContentType = resource.body[contentType];
+    var approvedContentType = Object.keys(resource.body)
+    if(reqContentType){
+      return reqContentType;
+    }else{
+      throw new Error('Content-Type ' + contentType + ' is not specified for this resource. Specified Content-Type: ' + approvedContentType);
     }
   },
 
@@ -188,17 +204,9 @@ var localUtils = {
       throw new Error('Body is not specified for this resource');
     }
 
-    var succ;
-    if (contentType) {
-      succ = body[contentType];
-      if (!succ) {
-        throw new Error('Content-Type ' + contentType + ' is not specified for this resource');
-      }
-    } else {
-      succ = body['application/json'];
-      if (!succ) {
-        throw new Error('No data for undefined Content-Type');
-      }
+    var succ = body['application/json'];
+    if (!succ) {
+      throw new Error('No data for undefined Content-Type');
     }
 
     return {
@@ -213,8 +221,8 @@ var localUtils = {
   },
 
   validateJson: function (body, schema, succ) {
-    var jsonSchemaValidator = amanda('json');
-    jsonSchemaValidator.validate(body, schema, succ);
+    var jsonSchemaValidator = new Validator();
+    return jsonSchemaValidator.validate(body, schema);
   },
 
   setCustomHeaders: function (headers, res) {
@@ -232,7 +240,8 @@ var localUtils = {
       }
       break;
     }
-  }
+  },
+
 
 }
 
