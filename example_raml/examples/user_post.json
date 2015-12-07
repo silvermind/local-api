@@ -1,10 +1,15 @@
 {
-    "birthDate": "1983-04-10",
-    "email": "Albin.Tremblay39@yahoo.com",
-    "firstName": "Amaya",
-    "lastName": "Breitenberg",
-    "gender": "male",
+    "birthDate": "1931-10-10",
+    "email": "Ruby_Quigley@hotmail.com",
+    "firstName": "Oran",
+    "lastName": "Jakubowski",
+    "gender": "female",
     "status": false,
-    "idArray": [],
-    "points": 60
+    "idArray": [
+        "w2F2Fh0lxjkPvHkTXa5iY7fB",
+        "aS6uFG6p4VcxiPCEYvgcRLB5",
+        "PMqf6BLyMFnIIppqAaRns6eU",
+        "JdoQQcobPOIKMVd0SbfFu4sw"
+    ],
+    "points": 23
 }
