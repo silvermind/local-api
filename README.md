@@ -192,7 +192,6 @@ Version `1.1.1`
 - changed the color of logs
 - added feature: make dir 'examples' if does not exist
 - a lot of small fixes
-- 
 
 Version `1.2.1`
 - add compatibility for draft v4
