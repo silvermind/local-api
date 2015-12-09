@@ -141,6 +141,9 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 ## Changelog
+Version `1.4.2`
+- fixed content type check in GET requests
+
 Version `1.4.1`
 - add compatibility for draft v4
 - add compatibility for request Content-Type(urlencoded, text, raw)
