@@ -11,6 +11,30 @@ https://github.com/isaacloud/local-api/wiki/Tutorial
 
 ---
 
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Contents**
+
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Run options](#run-options)
+    - [Custom port](#custom-port)
+    - [Show running details](#show-running-details)
+  - [RAML](#raml)
+    - [Directory structure](#directory-structure)
+    - [Supported responses](#supported-responses)
+  - [Dummy data generator](#dummy-data-generator)
+    - [Information](#information)
+    - [How to](#how-to)
+    - [Example RAML directory](#example-raml-directory)
+    - [Methods for template generator§§](#methods-for-template-generator%C2%A7%C2%A7)
+  - [Known problems and limitations](#known-problems-and-limitations)
+- [License](#license)
+- [Changelog](#changelog)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+---
 
 ## Installation
 - Install Node.js from http://nodejs.org/
@@ -140,7 +164,20 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 ```
 
 ---
-## Changelog
+## Known problems and limitations
+
+- When defining multiple response status codes for a request, LocalAPI always returns the one with the smallest code number, regarldess of their order in the RAML file.
+- As of now, no support RAML 1.0.
+- Cannot switch from generated examples to static examples without manually editing the RAML file.
+
+
+---
+# License
+
+To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
+
+---
+# Changelog
 Version `1.4.0`
 
 - fixed small bugs with *schema validation*
