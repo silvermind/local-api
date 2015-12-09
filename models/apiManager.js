@@ -29,7 +29,9 @@ var getResponse = function (ramlRoot, req) {
   // find chosen method in raml definitions
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
-  localUtils.checkRequestContentType(currentMethod,contentType)
+  if( contentType ) {
+    localUtils.checkRequestContentType(currentMethod,contentType)
+  }
 
   // find success response in this resource
   successResponseObj = localUtils.findSuccessResponse(currentMethod.responses, contentType);
