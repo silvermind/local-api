@@ -1,6 +1,6 @@
 {
   "name": "localapi",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "Local API based on raml",
   "main": "localApi.js",
   "repository": {
@@ -16,7 +16,6 @@
     "localapi": "./bin/localapi"
   },
   "dependencies": {
-    "amanda": "0.5.*",
     "body-parser": "^1.9.2",
     "colors": "^1.0.3",
     "commander": "^2.8.0",
@@ -24,6 +23,7 @@
     "faker": "^2.1.0",
     "find-remove": "^0.2.5",
     "fs-extra": "^0.13.*",
+    "jsonschema": "^1.0.2",
     "lodash": "^2.4.1",
     "minimist": "^1.1.0",
     "openid-connect": "^1.2.2",

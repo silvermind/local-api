@@ -34,8 +34,6 @@ https://github.com/isaacloud/local-api/wiki/Tutorial
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
----
-
 ## Installation
 - Install Node.js from http://nodejs.org/
 - Install LocalAPI module via npm
@@ -162,22 +160,31 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 });
 // indexArray === [{user_data_json_1}, {user_data_json_2}]
 ```
-
 ---
+
 ## Known problems and limitations
 
 - When defining multiple response status codes for a request, LocalAPI always returns the one with the smallest code number, regarldess of their order in the RAML file.
 - As of now, no support RAML 1.0.
 - Cannot switch from generated examples to static examples without manually editing the RAML file.
 
-
 ---
+
 # License
 
 To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
 
 ---
-# Changelog
+
+---
+## Changelog
+Version `1.4.2`
+- fixed content type check in GET requests
+
+Version `1.4.1`
+- add compatibility for draft v4
+- add compatibility for request Content-Type(urlencoded, text, raw)
+
 Version `1.4.0`
 
 - fixed small bugs with *schema validation*
