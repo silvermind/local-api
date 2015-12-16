@@ -178,6 +178,9 @@ To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
 
 ---
 ## Changelog
+Version `1.4.3`
+- added ASCII image
+
 Version `1.4.2`
 - fixed content type check in GET requests
 
