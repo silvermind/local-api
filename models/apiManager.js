@@ -1,5 +1,5 @@
 var _                = require('lodash'),
-    Validator       = require('jsonschema').Validator,
+    schemaValidator  = require('../models/schemaValidator'),
     Q                = require('q'),
     winston          = require('winston'),
     url              = require('url'),
@@ -50,7 +50,6 @@ var getResponse = function (ramlRoot, req) {
   if (validationSchema) {
 
     var result = localUtils.validateJson(req.body, validationSchema);
-
 
     var _finalRes;
       if( result.errors.length > 0 ) {
@@ -223,7 +222,8 @@ var localUtils = {
   },
 
   validateJson: function (body, schema, succ) {
-    var jsonSchemaValidator = new Validator();
+
+    var jsonSchemaValidator = schemaValidator.get();
     return jsonSchemaValidator.validate(body, schema);
   },
 
