@@ -13,7 +13,7 @@ https://github.com/isaacloud/local-api/wiki/Tutorial
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Contents**
+
 
   - [Installation](#installation)
   - [Usage](#usage)
@@ -29,8 +29,9 @@ https://github.com/isaacloud/local-api/wiki/Tutorial
     - [Example RAML directory](#example-raml-directory)
     - [Methods for template generator§§](#methods-for-template-generator%C2%A7%C2%A7)
   - [Known problems and limitations](#known-problems-and-limitations)
+  - [Planned features and enhancements](#planned-features-and-enhancements)
 - [License](#license)
-- [Changelog](#changelog)
+  - [Changelog](#changelog)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -170,6 +171,34 @@ var indexArray = tmplUtils.multiCollection(1, 3)(function (i) {
 
 ---
 
+## Planned features and enhancements
+
+* **Improved writing to the console**
+Better outputting information about requests and errors to the console. There will also be a possibility to generate log files with all requests made to the service.
+
+* **Modular architecture**
+Refactoring of the application architecture to make it more modular. A possibility to support plugin provided by external developers will also be provided. (An example of such an add-on is support for storing data in databases, not only in files, as is currently the case.)
+
+* **Persistence**
+Support for persisting results of operations made objects via the service. A user object created by sending a POST request to `/users` will be saved and retrieved upon a GET request.
+
+* **Sample RAML generator**
+A simple RAML file generator to accelerate a newcomer's adoption of LA and smooth out the process of adding a required API structure. The process of creating a sample API will require entering a simple command in the command line, such as `localapi gen-example`.
+
+* **RAML 1.0 support**
+Support for the RAML standard in its newest, 1.0 version. Considering its current, beta version, the schedule for this feature has not been established yet.
+
+* **Support for query parameters**
+Traits defined in a RAML can modify requests made to an API – narrow down the number of results returned, display them in a specified sort order, etc. Query parameters will also find their way to future releases.
+
+* **Improved exception handling**
+Future releases will provide for improved exception handling, for example, when a given port is already bound by an instance of the service running and we want to launch the second instance on the same port.
+
+* **Generating documentation**
+Generating simple documentation of the mock API in the HTML format is also taken into consideration in long-distance plans of the LA team.
+
+---
+
 # License
 
 To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
@@ -178,6 +207,7 @@ To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
 
 ---
 ## Changelog
+
 Version `1.4.3`
 - added ASCII image
 
