@@ -1,5 +1,5 @@
 var _                = require('lodash'),
-    Validator       = require('jsonschema').Validator,
+    schemaValidator  = require('../models/schemaValidator'),
     Q                = require('q'),
     winston          = require('winston'),
     url              = require('url'),
@@ -30,7 +30,7 @@ var getResponse = function (ramlRoot, req) {
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
   if( contentType ) {
-    localUtils.checkRequestContentType(currentMethod,contentType)
+    localUtils.checkRequestContentType(currentMethod,contentType);
   }
 
   // find success response in this resource
@@ -50,7 +50,6 @@ var getResponse = function (ramlRoot, req) {
   if (validationSchema) {
 
     var result = localUtils.validateJson(req.body, validationSchema);
-
 
     var _finalRes;
       if( result.errors.length > 0 ) {
@@ -181,13 +180,25 @@ var localUtils = {
 
 
   checkRequestContentType: function(resource,contentType){
-    var reqContentType = resource.body[contentType];
-    var approvedContentType = Object.keys(resource.body)
-    if(reqContentType){
-      return reqContentType;
-    }else{
-      throw new Error('Content-Type ' + contentType + ' is not specified for this resource. Specified Content-Type: ' + approvedContentType);
+    var approvedType = ['application/json','text/plain','raw','application/x-www-urlencoded'];
+
+    if(approvedType.indexOf(contentType) != -1){
+
+      var reqContentType = resource.body[contentType];
+      var approvedContentType = Object.keys(resource.body);
+
+      if(reqContentType){
+        return reqContentType;
+      }else{
+        throw new Error('Content-Type ' + contentType + ' is not specified for this resource. Specified Content-Type: ' + approvedContentType);
+      }
+
     }
+    else{
+      throw new Error('You can only use request content-type from ' + approvedType);
+    }
+
+
   },
 
   findSuccessResponse: function (responses, contentType) {
@@ -223,7 +234,8 @@ var localUtils = {
   },
 
   validateJson: function (body, schema, succ) {
-    var jsonSchemaValidator = new Validator();
+
+    var jsonSchemaValidator = schemaValidator.get();
     return jsonSchemaValidator.validate(body, schema);
   },
 
