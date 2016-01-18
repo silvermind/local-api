@@ -1,41 +1,28 @@
 {
 	"type":"object",
-	"$schema": "http://json-schema.org/draft-03/schema",
-	"id": "http://jsonschema.net",
-	"required":false,
+	"$schema": "http://json-schema.org/draft-04/schema",
+	"description": "a user object for POST",
 	"properties":{
 		"birthDate": {
 			"type":"string",
-			"id": "http://jsonschema.net/birthDate",
-			"required":false,
             "pattern":"^\\d{4}-\\d{2}-\\d{2}$"
 		},
 		"email": {
 			"type":"string",
-			"id": "http://jsonschema.net/email",
-			"required":true,
             "format":"email"
 		},
 		"firstName": {
-			"type":"string",
-			"id": "http://jsonschema.net/firstName",
-			"required":false
+			"type":"string"
 		},
 		"gender": {
-			"type":"string",
-			"id": "http://jsonschema.net/gender",
-			"required":false,
-            "enum": ["male", "female"]
+            "enum": [ "male", "female" ]
 		},
 		"lastName": {
-			"type":"string",
-			"id": "http://jsonschema.net/lastName",
-			"required":false
+			"type":"string"
 		},
 		"status": {
-			"type":"boolean",
-			"id": "http://jsonschema.net/status",
-			"required":false
+			"type":"boolean"
 		}
-	}
+	},
+	"required": [ "email" ]	
 }
