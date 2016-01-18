@@ -178,6 +178,11 @@ To see LocalAPI license, go to [LICENSE.md](./docs/LICENSE.md).
 
 ---
 ## Changelog
+
+Version `1.4.4`
+- changed message for 'not' error
+- added errors for not specified Content-Types in raml
+
 Version `1.4.3`
 - added ASCII image
 
