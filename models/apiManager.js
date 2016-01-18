@@ -29,7 +29,7 @@ var getResponse = function (ramlRoot, req) {
   // find chosen method in raml definitions
   currentMethod = localUtils.findMethod(currentResource, req.method);
 
-  if( contentType ) {
+  if( contentType && currentMethod.method != 'get' ) {
     localUtils.checkRequestContentType(currentMethod,contentType);
   }
 
@@ -184,7 +184,7 @@ var localUtils = {
 
     if(approvedType.indexOf(contentType) != -1){
 
-      var reqContentType = resource.body[contentType];
+      var reqContentType = resource.body[contentType] || null;
       var approvedContentType = Object.keys(resource.body);
 
       if(reqContentType){
