@@ -21,7 +21,11 @@ module.exports = {
   errorLogger: function (err, req, res, next) {
     logger(req);
     console.log('Error: \n'.red, '[' + err.status + '] ' + err.message);
-    return next();
+
+    res.status(err.status).send({
+      "message": err.message,
+      "code": err.status
+    });
   },
 
   getRamlRootDir: function (url) {
