@@ -28,7 +28,7 @@
     "minimist": "^1.1.0",
     "openid-connect": "^1.2.2",
     "q": "^1.1.2",
-    "raml-parser": "git://github.com/isaacloud/raml-js-parser.git#bug/IM-646/ref_parser",
+    "raml-parser": "git://github.com/isaacloud/raml-js-parser.git",
     "winston": "^1.0.0"
   },
   "devDependencies": {}
