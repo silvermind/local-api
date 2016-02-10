@@ -1,6 +1,6 @@
 {
   "name": "localapi",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "Local API based on raml",
   "main": "localApi.js",
   "repository": {
@@ -20,7 +20,7 @@
     "colors": "^1.0.3",
     "commander": "^2.8.0",
     "express": "^4.10.1",
-    "faker": "3.0.1",
+    "faker": "^2.1.0",
     "find-remove": "^0.2.5",
     "fs-extra": "^0.13.*",
     "jsonschema": "^1.0.2",
@@ -28,7 +28,7 @@
     "minimist": "^1.1.0",
     "openid-connect": "^1.2.2",
     "q": "^1.1.2",
-    "raml-parser": "isaacloud/raml-js-parser",
+    "raml-parser": "git://github.com/isaacloud/raml-js-parser.git",
     "winston": "^1.0.0"
   },
   "devDependencies": {}
